@@ -1,0 +1,30 @@
+{
+    "name": "micheld/charcoal-conductor",
+    "description": "A tool used to manage your Charcoal projects.",
+    "type": "project",
+    "version": "1.0.0",
+    "autoload": {
+        "psr-4": {
+            "Charcoal\\Conductor\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Michel Descoteaux",
+            "email": "descoteaux.michel@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.4 || ^8.0",
+        "symfony/filesystem": "*",
+        "symfony/console": "*",
+        "symfony/finder": "*",
+        "locomotivemtl/charcoal-app": "*",
+        "locomotivemtl/charcoal-core": "*",
+        "locomotivemtl/charcoal-factory": "*",
+        "locomotivemtl/charcoal-attachment": "^0.11.0"
+    },
+    "bin": [
+        "conductor"
+    ]
+}
