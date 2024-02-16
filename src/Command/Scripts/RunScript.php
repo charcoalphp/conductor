@@ -1,6 +1,6 @@
 <?php
 
-namespace Charcoal\Conductor\Command\Charcoal;
+namespace Charcoal\Conductor\Command\Scripts;
 
 use Charcoal\Conductor\Traits\ModelAwareTrait;
 use Symfony\Component\Console\Input\InputArgument;
@@ -21,7 +21,7 @@ class RunScript extends AbstractCommand implements CompletionAwareInterface
     protected function configure()
     {
         $this
-            ->setName('charcoal:run')
+            ->setName('scripts:run')
             ->setDescription('Run a charcoal script.')
             ->addArgument('script', InputArgument::REQUIRED, 'The charcoal script you want to execute.')
             ->setHelp(<<<'EOF'

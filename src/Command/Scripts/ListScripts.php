@@ -1,6 +1,6 @@
 <?php
 
-namespace Charcoal\Conductor\Command\Charcoal;
+namespace Charcoal\Conductor\Command\Scripts;
 
 use Charcoal\Conductor\Traits\ModelAwareTrait;
 use Symfony\Component\Console\Input\InputArgument;
@@ -19,7 +19,7 @@ class ListScripts extends AbstractCommand
     protected function configure()
     {
         $this
-            ->setName('charcoal:list')
+            ->setName('scripts:list')
             ->setDescription('List all charcoal scripts.')
             ->setHelp(<<<'EOF'
 The <info>%command.name%</info> command displays a list of all registered scripts within your Charcoal project

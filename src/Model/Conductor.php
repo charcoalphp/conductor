@@ -37,8 +37,8 @@ final class Conductor
             new CompletionCommand(),
             new Command\Models\ListModels(),
             new Command\Models\SyncModels(),
-            new Command\Charcoal\ListScripts(),
-            new Command\Charcoal\RunScript(),
+            new Command\Scripts\ListScripts(),
+            new Command\Scripts\RunScript(),
         ]);
 
         return;
