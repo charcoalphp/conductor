@@ -8,8 +8,8 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Charcoal\Conductor\Command\AbstractCommand;
 use Stecman\Component\Symfony\Console\BashCompletion\Completion\CompletionAwareInterface;
-use Stecman\Component\Symfony\Console\BashCompletion\Completion\CompletionInterface;
 use Stecman\Component\Symfony\Console\BashCompletion\CompletionContext;
+use Slim\Http\Environment as SlimEnvironment;
 
 class RunScript extends AbstractCommand implements CompletionAwareInterface
 {
@@ -65,11 +65,19 @@ EOF
             exit();
         }
 
-        $scripts = $this->getProjectScripts();
+        $container = $this->getAppContainer();
+        $scriptInput = $input->getArgument('script');
 
-        foreach ($scripts as $scriptName) {
-            $output->writeln($scriptName);
-        }
+        // Create a fake HTTP environment from the first CLI argument
+        $container['environment'] = function ($container) use ($scriptInput) {
+            $path = '/' . ltrim($scriptInput, '/');
+            return SlimEnvironment::mock([
+                'PATH_INFO'   => $path,
+                'REQUEST_URI' => $path,
+            ]);
+        };
+
+        $this->getProjectApp();
 
         return 0;
     }

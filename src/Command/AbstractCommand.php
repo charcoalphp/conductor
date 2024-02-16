@@ -7,13 +7,13 @@ use Symfony\Component\Filesystem\Filesystem;
 use Charcoal\App\App;
 use Charcoal\App\AppConfig;
 use Charcoal\App\AppContainer;
-use Slim\Http\Environment as SlimEnvironment;
 
 abstract class AbstractCommand extends Command
 {
-    private $project_dir;
-    private $appContainer;
-    private $projectApp;
+    protected $project_dir;
+    protected AppConfig $appConfig;
+    protected AppContainer $appContainer;
+    protected App $projectApp;
 
     public function getProjectDir(): string
     {
@@ -69,16 +69,33 @@ abstract class AbstractCommand extends Command
     public function getProjectApp()
     {
         if (!isset($this->projectApp)) {
-            /*error_reporting(E_ERROR | E_USER_ERROR | E_PARSE);
-            ob_start();
-            require_once($this->getProjectDir() . '/www/index.php');
-            ob_end_clean();*/
             $container = $this->getAppContainer();
             $this->projectApp = App::instance($container);
             $this->projectApp->run();
         }
 
         return $this->projectApp;
+    }
+
+    public function getAppConfig()
+    {
+        if (!isset($this->appConfig)) {
+            $baseDir = $this->getProjectDir();
+            $confFile = $baseDir . '/config/config.php';
+            $config = new AppConfig([
+                'base_path' => $baseDir,
+            ]);
+            $config->addFile($confFile);
+            $config->merge([
+                'service_providers' => [
+                    'charcoal/admin/service-provider/admin' => []
+                ]
+            ]);
+
+            $this->appConfig = $config;
+        }
+
+        return $this->appConfig;
     }
 
     /**
@@ -88,10 +105,8 @@ abstract class AbstractCommand extends Command
     public function getAppContainer(): AppContainer
     {
         if (!isset($this->appContainer)) {
-            $baseDir = $this->getProjectDir();
-
             // Find Composer autoloader
-            $autoloaderPath = $baseDir . '/vendor/autoload.php';
+            $autoloaderPath = $this->getProjectDir() . '/vendor/autoload.php';
 
             if (file_exists($autoloaderPath)) {
                 include $autoloaderPath;
@@ -99,19 +114,9 @@ abstract class AbstractCommand extends Command
                 die('Composer autoloader not found.' . "\n");
             }
 
-            $confFile = $baseDir . '/config/config.php';
-            $config = new AppConfig([
-                'base_path'   => $baseDir,
-            ]);
-            $config->addFile($confFile);
-            $config->merge([
-                'service_providers' => [
-                    'charcoal/admin/service-provider/admin' => []
-                ]
-            ]);
             // Create container and configure it (with charcoal-config)
             $this->appContainer = new AppContainer([
-                'config' => $config,
+                'config' => $this->getAppConfig(),
             ]);
 
             // Convert HTTP 404 Not Found to CLI-friendly error
@@ -131,16 +136,6 @@ abstract class AbstractCommand extends Command
                             $exception->getMessage()
                         ));
                 };
-            };
-
-            // Create a fake HTTP environment from the first CLI argument
-            global $argv;
-            $this->appContainer['environment'] = function ($container) use ($argv) {
-                $path = '/' . ltrim($argv[1], '/');
-                return SlimEnvironment::mock([
-                    'PATH_INFO'   => $path,
-                    'REQUEST_URI' => $path,
-                ]);
             };
         }
         return $this->appContainer;
