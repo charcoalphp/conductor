@@ -2,7 +2,7 @@
     "name": "mouseeatscat/charcoal-conductor",
     "description": "A CLI tool for interacting with your Charcoal projects.",
     "type": "project",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "license": "Apache-2.0",
     "autoload": {
         "psr-4": {
@@ -16,13 +16,13 @@
         }
     ],
     "require": {
-        "php": "^7.4",
+        "php": "^7.4|^8.0",
         "charcoal/charcoal": "*",
         "slim/slim": "*",
         "stecman/symfony-console-completion": "^0.11.0",
-        "symfony/filesystem": "^5.0",
-        "symfony/console": "^4.0",
-        "symfony/finder": "^5.0"
+        "symfony/filesystem": "*",
+        "symfony/console": "*",
+        "symfony/finder": "*"
     },
     "bin": [
         "conductor"
