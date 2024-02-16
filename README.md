@@ -7,6 +7,7 @@ A CLI tool for interacting with the [Charcoal framework](https://github.com/char
 ## Installation
 ```BASH
 composer global require mouseeatscat/charcoal-conductor
+composer global config repositories.stecman/symfony-console-completion vcs https://github.com/MouseEatsCat/symfony-console-completion
 ```
 ### Autocompletion
 To enable autocompletion, you need to add the following to your `.bashrc` or `.zshrc` file.

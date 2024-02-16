@@ -19,12 +19,18 @@
         "php": "^7.4|^8.0",
         "charcoal/charcoal": "*",
         "slim/slim": "*",
-        "stecman/symfony-console-completion": "^0.11.0",
         "symfony/filesystem": "*",
         "symfony/console": "*",
-        "symfony/finder": "*"
+        "symfony/finder": "*",
+        "stecman/symfony-console-completion": "^0.11.0"
     },
     "bin": [
         "conductor"
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/MouseEatsCat/symfony-console-completion"
+        }
     ]
 }
