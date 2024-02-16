@@ -2,12 +2,11 @@
 
 namespace Charcoal\Conductor\Model;
 
-use Charcoal\Conductor\Command\Charcoal;
-use Charcoal\Conductor\Command\ListModels;
-use Charcoal\Conductor\Command\SyncModels;
+use Charcoal\Conductor\Command;
 use Exception;
 use Symfony\Component\Console\Application;
 use Composer\InstalledVersions;
+use Stecman\Component\Symfony\Console\BashCompletion\CompletionCommand;
 
 final class Conductor
 {
@@ -35,9 +34,11 @@ final class Conductor
     public function registerCommands()
     {
         $this->getConsole()->addCommands([
-            new ListModels(),
-            new SyncModels(),
-            new Charcoal(),
+            new CompletionCommand(),
+            new Command\Models\ListModels(),
+            new Command\Models\SyncModels(),
+            new Command\Charcoal\ListScripts(),
+            new Command\Charcoal\RunScript(),
         ]);
 
         return;
