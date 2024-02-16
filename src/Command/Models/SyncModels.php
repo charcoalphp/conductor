@@ -97,18 +97,18 @@ EOF
     {
         if (!$this->validateProject()) {
             $this->writeError('Your project is not a valid Charcoal project', $output);
-            return Command::FAILURE;
+            return self::$FAILURE;
         }
 
         if (!$this->getProjectApp()->getContainer()->get('model/factory')) {
             $this->writeError('Failed to get model factory from app container', $output);
-            return Command::FAILURE;
+            return self::$FAILURE;
         }
 
         $models = $this->getModels($output);
         if (empty($models)) {
             $this->writeError('No models were found in the current directory.', $output);
-            return Command::FAILURE;
+            return self::$FAILURE;
         }
 
         $modelArgument = $input->getArgument('model');
@@ -119,7 +119,7 @@ EOF
 
             if (empty($models)) {
                 $this->writeError('No models match your criteria.', $output);
-                return Command::INVALID;
+                return self::$INVALID;
             }
         }
 
@@ -150,11 +150,9 @@ EOF
             }
         }
 
-        $outputStyle = new OutputFormatterStyle('red', '#ff0', ['bold', 'blink']);
-        $output->getFormatter()->setStyle('fire', $outputStyle);
         $output->writeln('<info>All Done!</info>');
 
-        return Command::SUCCESS;
+        return self::$SUCCESS;
     }
 
     private function createTable(ModelInterface $model, OutputInterface $output)

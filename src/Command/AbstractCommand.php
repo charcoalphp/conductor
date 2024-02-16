@@ -12,6 +12,10 @@ use Symfony\Component\Console\Helper\FormatterHelper;
 
 abstract class AbstractCommand extends Command
 {
+    public static int $SUCCESS = 0;
+    public static int $FAILURE = 1;
+    public static int $INVALID = 2;
+
     protected $project_dir;
     protected AppConfig $appConfig;
     protected AppContainer $appContainer;

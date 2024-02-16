@@ -31,7 +31,7 @@ EOF
     {
         if (!$this->validateProject()) {
             $output->write('Your project is not a valid Charcoal project');
-            exit();
+            return self::$FAILURE;
         }
 
         $scripts = $this->getProjectScripts();
@@ -51,6 +51,6 @@ EOF
 
         $table->render();
 
-        return 0;
+        return self::$SUCCESS;
     }
 }

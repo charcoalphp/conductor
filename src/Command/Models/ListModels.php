@@ -29,13 +29,13 @@ EOF
     {
         if (!$this->validateProject()) {
             $output->write('Your project is not a valid Charcoal project');
-            exit();
+            return self::$FAILURE;
         }
 
         $modelFactory = $this->getProjectApp()->getContainer()->get('model/factory');
 
         if (!$modelFactory) {
-            return 0;
+            return self::$SUCCESS;
         }
 
         $models = $this->loadModels($modelFactory, $output);
@@ -44,6 +44,6 @@ EOF
             $output->writeln(get_class($model));
         }
 
-        return 0;
+        return self::$SUCCESS;
     }
 }

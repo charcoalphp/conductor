@@ -65,7 +65,7 @@ EOF
     {
         if (!$this->validateProject()) {
             $output->write('Your project is not a valid Charcoal project');
-            exit();
+            return self::$FAILURE;
         }
 
         $container = $this->getAppContainer();
@@ -82,6 +82,6 @@ EOF
 
         $this->getProjectApp();
 
-        return 0;
+        return self::$SUCCESS;
     }
 }
