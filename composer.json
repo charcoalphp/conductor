@@ -23,7 +23,8 @@
         "locomotivemtl/charcoal-core": "*",
         "locomotivemtl/charcoal-factory": "*",
         "locomotivemtl/charcoal-attachment": "^0.11.0",
-        "slim/slim": "*"
+        "slim/slim": "*",
+        "stecman/symfony-console-completion": "^0.11.0"
     },
     "bin": [
         "conductor"
