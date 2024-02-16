@@ -21,6 +21,7 @@ source <(conductor _completion -g -p conductor)
 | -------------- | ----------------------------------------------- |
 | help           | Display help for a command                      |
 | list           | List commands                                   |
+| models:create  | Create a new Model                              |
 | models:list    | List all registered Models                      |
 | models:sync    | Synchronize the database with model definitions |
 | scripts:list   | List all charcoal scripts                       |
