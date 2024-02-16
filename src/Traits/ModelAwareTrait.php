@@ -41,7 +41,9 @@ trait ModelAwareTrait
                 $newModel = $modelFactory->create($class_name);
                 $models[] = $newModel;
             } catch (\Throwable $e) {
-                $output->writeln("Failed to create class '$class_name': " . $e->getMessage());
+                if ($output->isDebug()) {
+                    $output->writeln("Failed to create class '$class_name': " . $e->getMessage());
+                }
                 continue;
             }
         }

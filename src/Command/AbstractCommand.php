@@ -7,6 +7,8 @@ use Symfony\Component\Filesystem\Filesystem;
 use Charcoal\App\App;
 use Charcoal\App\AppConfig;
 use Charcoal\App\AppContainer;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Helper\FormatterHelper;
 
 abstract class AbstractCommand extends Command
 {
@@ -21,6 +23,18 @@ abstract class AbstractCommand extends Command
             $this->project_dir = getcwd();
         }
         return $this->project_dir;
+    }
+
+    public function writeError(string $message, OutputInterface $output)
+    {
+        /** @var FormatterHelper $formatter */
+        $formatter = $this->getHelper('formatter');
+        $section = $formatter->formatSection(
+            'Error',
+            sprintf('<fg=red>%s</>', $message),
+            'error'
+        );
+        $output->writeln($section);
     }
 
     /**

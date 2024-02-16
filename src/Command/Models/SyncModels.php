@@ -15,8 +15,12 @@ use Symfony\Component\Console\Helper\Table;
 use Charcoal\Conductor\Command\AbstractCommand;
 use Charcoal\Model\Model;
 use Charcoal\Property\AbstractProperty;
+use Stecman\Component\Symfony\Console\BashCompletion\Completion\CompletionAwareInterface;
+use Stecman\Component\Symfony\Console\BashCompletion\CompletionContext;
+use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Command\Command;
 
-class SyncModels extends AbstractCommand
+class SyncModels extends AbstractCommand implements CompletionAwareInterface
 {
     use TimerTrait;
     use ModelAwareTrait;
@@ -32,7 +36,8 @@ class SyncModels extends AbstractCommand
         $this
             ->setName('models:sync')
             ->setDescription('Synchronize the database with model definitions.')
-            ->addOption('create-only', null, InputOption::VALUE_OPTIONAL, 'Create only')
+            ->addArgument('model', InputArgument::OPTIONAL, 'Model to sync')
+            ->addOption('create-only', null, InputOption::VALUE_NONE, 'Create only')
             ->addOption('dry', null, InputOption::VALUE_NONE, 'Dry-run')
             ->setHelp(<<<'EOF'
 The <info>%command.name%</info> command displays a list of all registered models/objects within your Charcoal project
@@ -40,40 +45,94 @@ EOF
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): int
+    public function completeArgumentValues($argumentName, CompletionContext $context)
     {
         if (!$this->validateProject()) {
-            $output->write('Your project is not a valid Charcoal project');
-            exit();
+            return [];
         }
 
+        $models = array_map(function ($model) {
+            /** @var Model $model */
+            return $model->objType();
+        }, $this->getModels(new ConsoleOutput()));
+
+        $word    = $context->getCurrentWord();
+        $suggestions = [];
+
+        if (empty($word)) {
+            return $models;
+        }
+
+        foreach ($models as $model) {
+            if (strpos($model, $word) !== false) {
+                $suggestions[] = $model;
+            }
+        }
+
+        return $suggestions;
+    }
+
+    public function completeOptionValues($optionName, CompletionContext $context)
+    {
+        return [];
+    }
+
+    private function getModels(OutputInterface $output)
+    {
         $model_factory = $this->getProjectApp()->getContainer()->get('model/factory');
 
         if (!$model_factory) {
-            $output->writeln('Failed to get model factory from app container.');
-            return 500;
+            return [];
         }
 
         $models = $this->loadModels($model_factory, $output);
         $models = array_filter($models, function ($model) {
             return !empty($model->metadata()->get('sources'));
         });
-        $modelsCount = count($models);
 
+        return $models;
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output): int
+    {
+        if (!$this->validateProject()) {
+            $this->writeError('Your project is not a valid Charcoal project', $output);
+            return Command::FAILURE;
+        }
+
+        if (!$this->getProjectApp()->getContainer()->get('model/factory')) {
+            $this->writeError('Failed to get model factory from app container', $output);
+            return Command::FAILURE;
+        }
+
+        $models = $this->getModels($output);
         if (empty($models)) {
-            $output->writeln('No models were found in the current directory.');
-            return 0;
+            $this->writeError('No models were found in the current directory.', $output);
+            return Command::FAILURE;
+        }
+
+        $modelArgument = $input->getArgument('model');
+        if (!empty($modelArgument)) {
+            $models = array_filter($models, function ($model) use ($modelArgument) {
+                return $model->objType() == $modelArgument;
+            });
+
+            if (empty($models)) {
+                $this->writeError('No models match your criteria.', $output);
+                return Command::INVALID;
+            }
         }
 
         $this->isDryRun = $input->getOption('dry');
         if ($this->isDryRun) {
-            $output->writeln('<fg=red;options=bold>DRY RUN</>');
+            $output->writeln('<fg=yellow;bg=red;options=bold> - DRY RUN - </>');
         }
 
 
         $do_create = true;
         $do_update = ($input->getOption('create-only') ?? false) == false;
 
+        $modelsCount = count($models);
         $output->writeln(sprintf(
             '%s %d Model%s',
             ($do_create && $do_update) ? 'Creating/Updating' : ($do_create ? 'Creating' : 'Updating'),
@@ -83,10 +142,6 @@ EOF
 
         foreach ($models as $model) {
             $this->timer()->start();
-
-            if (empty($model->metadata()->get('sources'))) {
-                continue;
-            }
 
             if ($do_create && !$model->source()->tableExists()) {
                 $this->createTable($model, $output);
@@ -99,7 +154,7 @@ EOF
         $output->getFormatter()->setStyle('fire', $outputStyle);
         $output->writeln('<info>All Done!</info>');
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     private function createTable(ModelInterface $model, OutputInterface $output)
