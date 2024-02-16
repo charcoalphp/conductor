@@ -16,7 +16,7 @@ class ListModels extends AbstractCommand
     protected function configure()
     {
         $this
-            ->setName('models-list')
+            ->setName('models:list')
             ->setDescription('List all registered Models.')
             ->setHelp(<<<'EOF'
 The <info>%command.name%</info> command displays a list of all registered models/objects within your Charcoal project
@@ -24,7 +24,7 @@ EOF
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         if (!$this->validateProject()) {
             $output->write('Your project is not a valid Charcoal project');

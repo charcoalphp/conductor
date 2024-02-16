@@ -27,7 +27,7 @@ class SyncModels extends AbstractCommand
     protected function configure()
     {
         $this
-            ->setName('models:db')
+            ->setName('models:sync')
             ->setDescription('Synchronize the database with model definitions.')
             ->addArgument('operation', InputArgument::OPTIONAL, 'update or create')
             ->addOption('dry', null, InputOption::VALUE_NONE, 'Dry-run')
@@ -37,7 +37,7 @@ EOF
             );
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         if (!$this->validateProject()) {
             $output->write('Your project is not a valid Charcoal project');
