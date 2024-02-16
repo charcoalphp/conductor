@@ -4,8 +4,239 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "27f1d742a17d9f4faacada505f28f9d1",
+    "content-hash": "2204dfc12a2e07fa606d02475a67b7f4",
     "packages": [
+        {
+            "name": "barryvdh/elfinder-flysystem-driver",
+            "version": "v0.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/barryvdh/elfinder-flysystem-driver.git",
+                "reference": "5a6c893dfb97e9848d7b1e5e990e943af7bc3550"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/barryvdh/elfinder-flysystem-driver/zipball/5a6c893dfb97e9848d7b1e5e990e943af7bc3550",
+                "reference": "5a6c893dfb97e9848d7b1e5e990e943af7bc3550",
+                "shasum": ""
+            },
+            "require": {
+                "intervention/image": "^2.0",
+                "league/flysystem": "^1.0",
+                "league/flysystem-cached-adapter": "^1.0",
+                "php": ">=5.4",
+                "studio-42/elfinder": "^2.1.10"
+            },
+            "suggest": {
+                "league/glide": "1.x to display images through Glide"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Barryvdh\\elFinderFlysystemDriver\\": "src/"
+                },
+                "classmap": [
+                    "elFinderVolumeFlysystem.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Barry vd. Heuvel",
+                    "email": "barryvdh@gmail.com"
+                }
+            ],
+            "description": "A Flysystem Driver for elFinder",
+            "keywords": [
+                "Flysystem",
+                "elfinder",
+                "filesystem"
+            ],
+            "support": {
+                "issues": "https://github.com/barryvdh/elfinder-flysystem-driver/issues",
+                "source": "https://github.com/barryvdh/elfinder-flysystem-driver/tree/v0.3.0"
+            },
+            "time": "2019-08-31T17:57:43+00:00"
+        },
+        {
+            "name": "charcoal/charcoal",
+            "version": "v4.0.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/charcoalphp/charcoal.git",
+                "reference": "c72eca843e70b362e9f6b97c415d35acadbe4cfa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/charcoalphp/charcoal/zipball/c72eca843e70b362e9f6b97c415d35acadbe4cfa",
+                "reference": "c72eca843e70b362e9f6b97c415d35acadbe4cfa",
+                "shasum": ""
+            },
+            "require": {
+                "barryvdh/elfinder-flysystem-driver": "^0.3",
+                "erusev/parsedown": "^1.7",
+                "ext-fileinfo": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "ext-pdo": "*",
+                "ext-simplexml": "*",
+                "ext-spl": "*",
+                "guzzlehttp/guzzle": "^6.0 || ^7.0",
+                "kriswallsmith/assetic": "^1.4",
+                "laminas/laminas-permissions-acl": "^2.8",
+                "league/climate": "^3.2",
+                "league/flysystem": "^1.0",
+                "mcaskill/php-html-build-attributes": "^1.0",
+                "monolog/monolog": "^1.17",
+                "php": "^7.4 || ^8.0",
+                "phpmailer/phpmailer": "~6.0",
+                "pimple/pimple": "^3.0",
+                "psr/cache": "^1.0",
+                "psr/container": "^1.0",
+                "psr/http-message": "^1.0",
+                "psr/log": "^1.0",
+                "seld/jsonlint": "^1.9",
+                "slim/slim": "^3.7",
+                "studio-42/elfinder": "2.1.64",
+                "symfony/translation": "^3.4",
+                "tedivm/stash": "~0.16",
+                "vlucas/phpdotenv": "^5.4"
+            },
+            "replace": {
+                "charcoal/admin": "self.version",
+                "charcoal/app": "self.version",
+                "charcoal/attachment": "self.version",
+                "charcoal/cache": "self.version",
+                "charcoal/cms": "self.version",
+                "charcoal/config": "self.version",
+                "charcoal/core": "self.version",
+                "charcoal/email": "self.version",
+                "charcoal/factory": "self.version",
+                "charcoal/image": "self.version",
+                "charcoal/object": "self.version",
+                "charcoal/property": "self.version",
+                "charcoal/queue": "self.version",
+                "charcoal/translator": "self.version",
+                "charcoal/ui": "self.version",
+                "charcoal/user": "self.version",
+                "charcoal/view": "self.version",
+                "locomotivemtl/charcoal-admin": "*",
+                "locomotivemtl/charcoal-app": "*",
+                "locomotivemtl/charcoal-attachment": "*",
+                "locomotivemtl/charcoal-cache": "*",
+                "locomotivemtl/charcoal-cms": "*",
+                "locomotivemtl/charcoal-config": "*",
+                "locomotivemtl/charcoal-core": "*",
+                "locomotivemtl/charcoal-email": "*",
+                "locomotivemtl/charcoal-factory": "*",
+                "locomotivemtl/charcoal-image": "*",
+                "locomotivemtl/charcoal-object": "*",
+                "locomotivemtl/charcoal-property": "*",
+                "locomotivemtl/charcoal-queue": "*",
+                "locomotivemtl/charcoal-translator": "*",
+                "locomotivemtl/charcoal-ui": "*",
+                "locomotivemtl/charcoal-user": "*",
+                "locomotivemtl/charcoal-view": "*"
+            },
+            "require-dev": {
+                "cache/void-adapter": "^1.0",
+                "league/csv": "^9.5",
+                "league/flysystem-aws-s3-v3": "^1.0",
+                "league/flysystem-memory": "^1.0",
+                "league/flysystem-sftp": "^1.0",
+                "mockery/mockery": "^1.0",
+                "mustache/mustache": "^2.11",
+                "php-coveralls/php-coveralls": "^2.2",
+                "phpstan/phpstan": "^1.6",
+                "phpunit/phpunit": "^9.5",
+                "squizlabs/php_codesniffer": "^3.5",
+                "symfony/yaml": "^3.0",
+                "symplify/monorepo-builder": "^10.2",
+                "twig/twig": "^3.4"
+            },
+            "bin": [
+                "bin/charcoal"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Charcoal\\": [
+                        "packages/app/src/Charcoal/",
+                        "packages/attachment/src/Charcoal",
+                        "packages/cache/src/Charcoal/",
+                        "packages/cms/src/Charcoal",
+                        "packages/config/src/Charcoal/",
+                        "packages/core/src/Charcoal",
+                        "packages/factory/src/Charcoal/",
+                        "packages/image/src/Charcoal",
+                        "packages/property/src/Charcoal/",
+                        "packages/queue/src/Charcoal",
+                        "packages/translator/src/Charcoal/",
+                        "packages/ui/src/Charcoal/"
+                    ],
+                    "Charcoal\\User\\": "packages/user/src/Charcoal/User",
+                    "Charcoal\\View\\": "packages/view/src/Charcoal/View",
+                    "Charcoal\\Admin\\": "packages/admin/src/Charcoal/Admin/",
+                    "Charcoal\\Email\\": "packages/email/src/Charcoal/Email",
+                    "Charcoal\\Object\\": "packages/object/src/Charcoal/Object"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Locomotive",
+                    "homepage": "https://locomotive.ca"
+                },
+                {
+                    "name": "Mathieu Ducharme",
+                    "email": "mat@locomotive.ca"
+                },
+                {
+                    "name": "Chauncey McAskill",
+                    "email": "chauncey@locomotive.ca"
+                },
+                {
+                    "name": "Joel Alphonso",
+                    "email": "joel@locomotive.ca"
+                },
+                {
+                    "name": "Dominic Lord",
+                    "email": "dom@locomotive.ca"
+                },
+                {
+                    "name": "Benjamin Roch",
+                    "email": "ben@locomotive.ca"
+                }
+            ],
+            "description": "The Charcoal Framework monorepo",
+            "homepage": "https://charcoal.locomotive.ca",
+            "keywords": [
+                "charcoal",
+                "cms",
+                "framework"
+            ],
+            "support": {
+                "issues": "https://github.com/charcoalphp/charcoal/issues",
+                "source": "https://github.com/charcoalphp/charcoal/tree/v4.0.8"
+            },
+            "time": "2024-01-13T00:34:49+00:00"
+        },
         {
             "name": "erusev/parsedown",
             "version": "1.7.4",
@@ -55,6 +286,621 @@
                 "source": "https://github.com/erusev/parsedown/tree/1.7.x"
             },
             "time": "2019-12-30T22:54:17+00:00"
+        },
+        {
+            "name": "graham-campbell/result-type",
+            "version": "v1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/GrahamCampbell/Result-Type.git",
+                "reference": "fbd48bce38f73f8a4ec8583362e732e4095e5862"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/GrahamCampbell/Result-Type/zipball/fbd48bce38f73f8a4ec8583362e732e4095e5862",
+                "reference": "fbd48bce38f73f8a4ec8583362e732e4095e5862",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2.5 || ^8.0",
+                "phpoption/phpoption": "^1.9.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.5.34 || ^9.6.13 || ^10.4.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "GrahamCampbell\\ResultType\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Graham Campbell",
+                    "email": "hello@gjcampbell.co.uk",
+                    "homepage": "https://github.com/GrahamCampbell"
+                }
+            ],
+            "description": "An Implementation Of The Result Type",
+            "keywords": [
+                "Graham Campbell",
+                "GrahamCampbell",
+                "Result Type",
+                "Result-Type",
+                "result"
+            ],
+            "support": {
+                "issues": "https://github.com/GrahamCampbell/Result-Type/issues",
+                "source": "https://github.com/GrahamCampbell/Result-Type/tree/v1.1.2"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/GrahamCampbell",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/graham-campbell/result-type",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2023-11-12T22:16:48+00:00"
+        },
+        {
+            "name": "guzzlehttp/guzzle",
+            "version": "7.8.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/guzzle.git",
+                "reference": "41042bc7ab002487b876a0683fc8dce04ddce104"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/41042bc7ab002487b876a0683fc8dce04ddce104",
+                "reference": "41042bc7ab002487b876a0683fc8dce04ddce104",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "guzzlehttp/promises": "^1.5.3 || ^2.0.1",
+                "guzzlehttp/psr7": "^1.9.1 || ^2.5.1",
+                "php": "^7.2.5 || ^8.0",
+                "psr/http-client": "^1.0",
+                "symfony/deprecation-contracts": "^2.2 || ^3.0"
+            },
+            "provide": {
+                "psr/http-client-implementation": "1.0"
+            },
+            "require-dev": {
+                "bamarni/composer-bin-plugin": "^1.8.2",
+                "ext-curl": "*",
+                "php-http/client-integration-tests": "dev-master#2c025848417c1135031fdf9c728ee53d0a7ceaee as 3.0.999",
+                "php-http/message-factory": "^1.1",
+                "phpunit/phpunit": "^8.5.36 || ^9.6.15",
+                "psr/log": "^1.1 || ^2.0 || ^3.0"
+            },
+            "suggest": {
+                "ext-curl": "Required for CURL handler support",
+                "ext-intl": "Required for Internationalized Domain Name (IDN) support",
+                "psr/log": "Required for using the Log middleware"
+            },
+            "type": "library",
+            "extra": {
+                "bamarni-bin": {
+                    "bin-links": true,
+                    "forward-command": false
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/functions_include.php"
+                ],
+                "psr-4": {
+                    "GuzzleHttp\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Graham Campbell",
+                    "email": "hello@gjcampbell.co.uk",
+                    "homepage": "https://github.com/GrahamCampbell"
+                },
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                },
+                {
+                    "name": "Jeremy Lindblom",
+                    "email": "jeremeamia@gmail.com",
+                    "homepage": "https://github.com/jeremeamia"
+                },
+                {
+                    "name": "George Mponos",
+                    "email": "gmponos@gmail.com",
+                    "homepage": "https://github.com/gmponos"
+                },
+                {
+                    "name": "Tobias Nyholm",
+                    "email": "tobias.nyholm@gmail.com",
+                    "homepage": "https://github.com/Nyholm"
+                },
+                {
+                    "name": "Márk Sági-Kazár",
+                    "email": "mark.sagikazar@gmail.com",
+                    "homepage": "https://github.com/sagikazarmark"
+                },
+                {
+                    "name": "Tobias Schultze",
+                    "email": "webmaster@tubo-world.de",
+                    "homepage": "https://github.com/Tobion"
+                }
+            ],
+            "description": "Guzzle is a PHP HTTP client library",
+            "keywords": [
+                "client",
+                "curl",
+                "framework",
+                "http",
+                "http client",
+                "psr-18",
+                "psr-7",
+                "rest",
+                "web service"
+            ],
+            "support": {
+                "issues": "https://github.com/guzzle/guzzle/issues",
+                "source": "https://github.com/guzzle/guzzle/tree/7.8.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/GrahamCampbell",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/Nyholm",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/guzzlehttp/guzzle",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2023-12-03T20:35:24+00:00"
+        },
+        {
+            "name": "guzzlehttp/promises",
+            "version": "2.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/promises.git",
+                "reference": "bbff78d96034045e58e13dedd6ad91b5d1253223"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/guzzle/promises/zipball/bbff78d96034045e58e13dedd6ad91b5d1253223",
+                "reference": "bbff78d96034045e58e13dedd6ad91b5d1253223",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2.5 || ^8.0"
+            },
+            "require-dev": {
+                "bamarni/composer-bin-plugin": "^1.8.2",
+                "phpunit/phpunit": "^8.5.36 || ^9.6.15"
+            },
+            "type": "library",
+            "extra": {
+                "bamarni-bin": {
+                    "bin-links": true,
+                    "forward-command": false
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GuzzleHttp\\Promise\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Graham Campbell",
+                    "email": "hello@gjcampbell.co.uk",
+                    "homepage": "https://github.com/GrahamCampbell"
+                },
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                },
+                {
+                    "name": "Tobias Nyholm",
+                    "email": "tobias.nyholm@gmail.com",
+                    "homepage": "https://github.com/Nyholm"
+                },
+                {
+                    "name": "Tobias Schultze",
+                    "email": "webmaster@tubo-world.de",
+                    "homepage": "https://github.com/Tobion"
+                }
+            ],
+            "description": "Guzzle promises library",
+            "keywords": [
+                "promise"
+            ],
+            "support": {
+                "issues": "https://github.com/guzzle/promises/issues",
+                "source": "https://github.com/guzzle/promises/tree/2.0.2"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/GrahamCampbell",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/Nyholm",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/guzzlehttp/promises",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2023-12-03T20:19:20+00:00"
+        },
+        {
+            "name": "guzzlehttp/psr7",
+            "version": "2.6.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/psr7.git",
+                "reference": "45b30f99ac27b5ca93cb4831afe16285f57b8221"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/45b30f99ac27b5ca93cb4831afe16285f57b8221",
+                "reference": "45b30f99ac27b5ca93cb4831afe16285f57b8221",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2.5 || ^8.0",
+                "psr/http-factory": "^1.0",
+                "psr/http-message": "^1.1 || ^2.0",
+                "ralouphie/getallheaders": "^3.0"
+            },
+            "provide": {
+                "psr/http-factory-implementation": "1.0",
+                "psr/http-message-implementation": "1.0"
+            },
+            "require-dev": {
+                "bamarni/composer-bin-plugin": "^1.8.2",
+                "http-interop/http-factory-tests": "^0.9",
+                "phpunit/phpunit": "^8.5.36 || ^9.6.15"
+            },
+            "suggest": {
+                "laminas/laminas-httphandlerrunner": "Emit PSR-7 responses"
+            },
+            "type": "library",
+            "extra": {
+                "bamarni-bin": {
+                    "bin-links": true,
+                    "forward-command": false
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GuzzleHttp\\Psr7\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Graham Campbell",
+                    "email": "hello@gjcampbell.co.uk",
+                    "homepage": "https://github.com/GrahamCampbell"
+                },
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                },
+                {
+                    "name": "George Mponos",
+                    "email": "gmponos@gmail.com",
+                    "homepage": "https://github.com/gmponos"
+                },
+                {
+                    "name": "Tobias Nyholm",
+                    "email": "tobias.nyholm@gmail.com",
+                    "homepage": "https://github.com/Nyholm"
+                },
+                {
+                    "name": "Márk Sági-Kazár",
+                    "email": "mark.sagikazar@gmail.com",
+                    "homepage": "https://github.com/sagikazarmark"
+                },
+                {
+                    "name": "Tobias Schultze",
+                    "email": "webmaster@tubo-world.de",
+                    "homepage": "https://github.com/Tobion"
+                },
+                {
+                    "name": "Márk Sági-Kazár",
+                    "email": "mark.sagikazar@gmail.com",
+                    "homepage": "https://sagikazarmark.hu"
+                }
+            ],
+            "description": "PSR-7 message implementation that also provides common utility methods",
+            "keywords": [
+                "http",
+                "message",
+                "psr-7",
+                "request",
+                "response",
+                "stream",
+                "uri",
+                "url"
+            ],
+            "support": {
+                "issues": "https://github.com/guzzle/psr7/issues",
+                "source": "https://github.com/guzzle/psr7/tree/2.6.2"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/GrahamCampbell",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/Nyholm",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/guzzlehttp/psr7",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2023-12-03T20:05:35+00:00"
+        },
+        {
+            "name": "intervention/image",
+            "version": "2.7.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Intervention/image.git",
+                "reference": "04be355f8d6734c826045d02a1079ad658322dad"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Intervention/image/zipball/04be355f8d6734c826045d02a1079ad658322dad",
+                "reference": "04be355f8d6734c826045d02a1079ad658322dad",
+                "shasum": ""
+            },
+            "require": {
+                "ext-fileinfo": "*",
+                "guzzlehttp/psr7": "~1.1 || ^2.0",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "~0.9.2",
+                "phpunit/phpunit": "^4.8 || ^5.7 || ^7.5.15"
+            },
+            "suggest": {
+                "ext-gd": "to use GD library based image processing.",
+                "ext-imagick": "to use Imagick based image processing.",
+                "intervention/imagecache": "Caching extension for the Intervention Image library"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Intervention\\Image\\ImageServiceProvider"
+                    ],
+                    "aliases": {
+                        "Image": "Intervention\\Image\\Facades\\Image"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Intervention\\Image\\": "src/Intervention/Image"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Oliver Vogel",
+                    "email": "oliver@intervention.io",
+                    "homepage": "https://intervention.io/"
+                }
+            ],
+            "description": "Image handling and manipulation library with support for Laravel integration",
+            "homepage": "http://image.intervention.io/",
+            "keywords": [
+                "gd",
+                "image",
+                "imagick",
+                "laravel",
+                "thumbnail",
+                "watermark"
+            ],
+            "support": {
+                "issues": "https://github.com/Intervention/image/issues",
+                "source": "https://github.com/Intervention/image/tree/2.7.2"
+            },
+            "funding": [
+                {
+                    "url": "https://paypal.me/interventionio",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/Intervention",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-05-21T17:30:32+00:00"
+        },
+        {
+            "name": "kriswallsmith/assetic",
+            "version": "v1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kriswallsmith/assetic.git",
+                "reference": "e911c437dbdf006a8f62c2f59b15b2d69a5e0aa1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kriswallsmith/assetic/zipball/e911c437dbdf006a8f62c2f59b15b2d69a5e0aa1",
+                "reference": "e911c437dbdf006a8f62c2f59b15b2d69a5e0aa1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.1",
+                "symfony/process": "~2.1|~3.0"
+            },
+            "conflict": {
+                "twig/twig": "<1.27"
+            },
+            "require-dev": {
+                "leafo/lessphp": "^0.3.7",
+                "leafo/scssphp": "~0.1",
+                "meenie/javascript-packer": "^1.1",
+                "mrclay/minify": "<2.3",
+                "natxet/cssmin": "3.0.4",
+                "patchwork/jsqueeze": "~1.0|~2.0",
+                "phpunit/phpunit": "~4.8 || ^5.6",
+                "psr/log": "~1.0",
+                "ptachoire/cssembed": "~1.0",
+                "symfony/phpunit-bridge": "~2.7|~3.0",
+                "twig/twig": "~1.23|~2.0",
+                "yfix/packager": "dev-master"
+            },
+            "suggest": {
+                "leafo/lessphp": "Assetic provides the integration with the lessphp LESS compiler",
+                "leafo/scssphp": "Assetic provides the integration with the scssphp SCSS compiler",
+                "leafo/scssphp-compass": "Assetic provides the integration with the SCSS compass plugin",
+                "patchwork/jsqueeze": "Assetic provides the integration with the JSqueeze JavaScript compressor",
+                "ptachoire/cssembed": "Assetic provides the integration with phpcssembed to embed data uris",
+                "twig/twig": "Assetic provides the integration with the Twig templating engine"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.4-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/functions.php"
+                ],
+                "psr-0": {
+                    "Assetic": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kris Wallsmith",
+                    "email": "kris.wallsmith@gmail.com",
+                    "homepage": "http://kriswallsmith.net/"
+                }
+            ],
+            "description": "Asset Management for PHP",
+            "homepage": "https://github.com/kriswallsmith/assetic",
+            "keywords": [
+                "assets",
+                "compression",
+                "minification"
+            ],
+            "support": {
+                "issues": "https://github.com/kriswallsmith/assetic/issues",
+                "source": "https://github.com/kriswallsmith/assetic/tree/master"
+            },
+            "time": "2016-11-11T18:43:20+00:00"
+        },
+        {
+            "name": "laminas/laminas-permissions-acl",
+            "version": "2.10.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laminas/laminas-permissions-acl.git",
+                "reference": "e927ae0a3001655fea97eb240eeea9d10638e82f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laminas/laminas-permissions-acl/zipball/e927ae0a3001655fea97eb240eeea9d10638e82f",
+                "reference": "e927ae0a3001655fea97eb240eeea9d10638e82f",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4 || ~8.0.0 || ~8.1.0"
+            },
+            "conflict": {
+                "laminas/laminas-servicemanager": "<3.0",
+                "zendframework/zend-permissions-acl": "*"
+            },
+            "require-dev": {
+                "laminas/laminas-coding-standard": "~2.3.0",
+                "laminas/laminas-servicemanager": "^3.15.1",
+                "phpunit/phpunit": "^9.5.0",
+                "psalm/plugin-phpunit": "^0.17.0",
+                "vimeo/psalm": "^4.24.0"
+            },
+            "suggest": {
+                "laminas/laminas-servicemanager": "To support Laminas\\Permissions\\Acl\\Assertion\\AssertionManager plugin manager usage"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Laminas\\Permissions\\Acl\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Provides a lightweight and flexible access control list (ACL) implementation for privileges management",
+            "homepage": "https://laminas.dev",
+            "keywords": [
+                "acl",
+                "laminas"
+            ],
+            "support": {
+                "chat": "https://laminas.dev/chat",
+                "docs": "https://docs.laminas.dev/laminas-permissions-acl/",
+                "forum": "https://discourse.laminas.dev",
+                "issues": "https://github.com/laminas/laminas-permissions-acl/issues",
+                "rss": "https://github.com/laminas/laminas-permissions-acl/releases.atom",
+                "source": "https://github.com/laminas/laminas-permissions-acl"
+            },
+            "funding": [
+                {
+                    "url": "https://funding.communitybridge.org/projects/laminas-project",
+                    "type": "community_bridge"
+                }
+            ],
+            "time": "2022-07-21T09:23:39+00:00"
         },
         {
             "name": "league/climate",
@@ -216,6 +1062,57 @@
             "time": "2022-10-04T09:16:37+00:00"
         },
         {
+            "name": "league/flysystem-cached-adapter",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/flysystem-cached-adapter.git",
+                "reference": "d1925efb2207ac4be3ad0c40b8277175f99ffaff"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/flysystem-cached-adapter/zipball/d1925efb2207ac4be3ad0c40b8277175f99ffaff",
+                "reference": "d1925efb2207ac4be3ad0c40b8277175f99ffaff",
+                "shasum": ""
+            },
+            "require": {
+                "league/flysystem": "~1.0",
+                "psr/cache": "^1.0.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "~0.9",
+                "phpspec/phpspec": "^3.4",
+                "phpunit/phpunit": "^5.7",
+                "predis/predis": "~1.0",
+                "tedivm/stash": "~0.12"
+            },
+            "suggest": {
+                "ext-phpredis": "Pure C implemented extension for PHP"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "League\\Flysystem\\Cached\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "frankdejonge",
+                    "email": "info@frenky.net"
+                }
+            ],
+            "description": "An adapter decorator to enable meta-data caching.",
+            "support": {
+                "issues": "https://github.com/thephpleague/flysystem-cached-adapter/issues",
+                "source": "https://github.com/thephpleague/flysystem-cached-adapter/tree/master"
+            },
+            "time": "2020-07-25T15:56:04+00:00"
+        },
+        {
             "name": "league/mime-type-detection",
             "version": "1.15.0",
             "source": {
@@ -272,257 +1169,32 @@
             "time": "2024-01-28T23:22:08+00:00"
         },
         {
-            "name": "locomotivemtl/charcoal-app",
-            "version": "0.9.2",
+            "name": "mcaskill/php-html-build-attributes",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/locomotivemtl/charcoal-app.git",
-                "reference": "2dac1f0814a38081a7443c75a006b58a3680eb24"
+                "url": "https://github.com/mcaskill/php-html-build-attributes.git",
+                "reference": "2f0390b856610b7da2c235263a5a7d90bade64e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/locomotivemtl/charcoal-app/zipball/2dac1f0814a38081a7443c75a006b58a3680eb24",
-                "reference": "2dac1f0814a38081a7443c75a006b58a3680eb24",
-                "shasum": ""
-            },
-            "require": {
-                "ext-pdo": "*",
-                "league/climate": "^3.2",
-                "league/flysystem": "^1.0",
-                "locomotivemtl/charcoal-cache": "~0.1",
-                "locomotivemtl/charcoal-config": "~0.8",
-                "locomotivemtl/charcoal-factory": "~0.4",
-                "locomotivemtl/charcoal-translator": "~0.3",
-                "locomotivemtl/charcoal-view": "~0.3",
-                "monolog/monolog": "^1.17",
-                "php": "^7.3 || ^8.0",
-                "psr/http-message": "^1.0",
-                "psr/log": "^1.0",
-                "slim/slim": "~3.7"
-            },
-            "require-dev": {
-                "league/flysystem-aws-s3-v3": "^1.0",
-                "league/flysystem-memory": "^1.0",
-                "league/flysystem-sftp": "^1.0",
-                "mockery/mockery": "^1.0",
-                "mustache/mustache": "^2.11",
-                "php-coveralls/php-coveralls": "^2.0",
-                "phpunit/phpunit": "^9.0",
-                "squizlabs/php_codesniffer": "^3.0",
-                "tedivm/stash": "~0.16"
-            },
-            "bin": [
-                "bin/charcoal"
-            ],
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.9.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Charcoal\\": "src/Charcoal/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Mathieu Ducharme",
-                    "email": "mat@locomotive.ca"
-                },
-                {
-                    "name": "Locomotive",
-                    "homepage": "https://locomotive.ca"
-                }
-            ],
-            "description": "Charcoal application, based on Slim 3",
-            "homepage": "https://charcoal.locomotive.ca",
-            "keywords": [
-                "charcoal",
-                "cms",
-                "framework",
-                "slim"
-            ],
-            "support": {
-                "issues": "https://github.com/locomotivemtl/charcoal-app/issues",
-                "source": "https://github.com/locomotivemtl/charcoal-app/tree/0.9.2"
-            },
-            "time": "2021-12-17T17:58:29+00:00"
-        },
-        {
-            "name": "locomotivemtl/charcoal-attachment",
-            "version": "0.11.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/locomotivemtl/charcoal-attachment.git",
-                "reference": "496b9bec978bb01065e59c36e4291fe8e3384ead"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/locomotivemtl/charcoal-attachment/zipball/496b9bec978bb01065e59c36e4291fe8e3384ead",
-                "reference": "496b9bec978bb01065e59c36e4291fe8e3384ead",
-                "shasum": ""
-            },
-            "require": {
-                "locomotivemtl/charcoal-config": "~0.8",
-                "locomotivemtl/charcoal-core": "~0.4",
-                "locomotivemtl/charcoal-object": "~0.5",
-                "locomotivemtl/charcoal-translator": "~0.3",
-                "php": " >=7.1"
-            },
-            "require-dev": {
-                "locomotivemtl/charcoal-admin": "~0.8",
-                "mockery/mockery": "^1.0",
-                "php-coveralls/php-coveralls": "^2.2",
-                "phpunit/phpunit": "^7.5",
-                "squizlabs/php_codesniffer": "^3.3"
-            },
-            "suggest": {
-                "locomotivemtl/charcoal-admin": "To use the attachment widgets, actions, and scripts."
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.11.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Charcoal\\": "src/Charcoal"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Bene Roch",
-                    "email": "ben@locomotive.ca"
-                },
-                {
-                    "name": "Locomotive",
-                    "homepage": "https://locomotive.ca"
-                }
-            ],
-            "description": "Charcoal Attachments Module",
-            "homepage": "https://charcoal.locomotive.ca",
-            "support": {
-                "issues": "https://github.com/locomotivemtl/charcoal-attachment/issues",
-                "source": "https://github.com/locomotivemtl/charcoal-attachment/tree/0.11.0"
-            },
-            "time": "2022-07-14T14:30:54+00:00"
-        },
-        {
-            "name": "locomotivemtl/charcoal-cache",
-            "version": "0.2.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/locomotivemtl/charcoal-cache.git",
-                "reference": "cc0f25765e86bc2ed8e13371599db93a9fe9c10d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/locomotivemtl/charcoal-cache/zipball/cc0f25765e86bc2ed8e13371599db93a9fe9c10d",
-                "reference": "cc0f25765e86bc2ed8e13371599db93a9fe9c10d",
-                "shasum": ""
-            },
-            "require": {
-                "locomotivemtl/charcoal-config": "~0.8",
-                "php": ">=5.6.0 || >=7.0",
-                "pimple/pimple": "^3.0",
-                "psr/cache": "^1.0",
-                "tedivm/stash": "~0.14"
-            },
-            "require-dev": {
-                "php-coveralls/php-coveralls": "^2.0",
-                "phpunit/phpunit": "^5.7 || ^6.5",
-                "psr/log": "^1.0",
-                "slim/http": "^0.3 || ^0.4",
-                "squizlabs/php_codesniffer": "^3.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.2.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Charcoal\\": "src/Charcoal/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Mathieu Ducharme",
-                    "email": "mat@locomotive.ca"
-                },
-                {
-                    "name": "Locomotive",
-                    "homepage": "https://locomotive.ca"
-                }
-            ],
-            "description": "Charcoal service provider for the Stash Cache Library",
-            "homepage": "https://locomotivemtl.github.io/charcoal-config/",
-            "keywords": [
-                "cache",
-                "caching",
-                "charcoal",
-                "stash"
-            ],
-            "support": {
-                "issues": "https://github.com/locomotivemtl/charcoal-cache/issues",
-                "source": "https://github.com/locomotivemtl/charcoal-cache/tree/0.2.3"
-            },
-            "time": "2021-02-17T20:52:27+00:00"
-        },
-        {
-            "name": "locomotivemtl/charcoal-config",
-            "version": "0.10.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/locomotivemtl/charcoal-config.git",
-                "reference": "05680bb19646f1a14e1ce36a339b6027b31f22e0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/locomotivemtl/charcoal-config/zipball/05680bb19646f1a14e1ce36a339b6027b31f22e0",
-                "reference": "05680bb19646f1a14e1ce36a339b6027b31f22e0",
+                "url": "https://api.github.com/repos/mcaskill/php-html-build-attributes/zipball/2f0390b856610b7da2c235263a5a7d90bade64e4",
+                "reference": "2f0390b856610b7da2c235263a5a7d90bade64e4",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "ext-spl": "*",
-                "php": ">=5.6.0 || >=7.0",
-                "psr/container": "^1.0"
+                "php": ">=5.4.0"
             },
             "require-dev": {
-                "php-coveralls/php-coveralls": "^2.0",
-                "phpunit/phpunit": "^5.7 || ^6.5",
-                "squizlabs/php_codesniffer": "^3.0",
-                "symfony/yaml": "^3.0"
-            },
-            "suggest": {
-                "symfony/yaml": "To load and parse configuration files in yaml format."
+                "pestphp/pest": "^1.22",
+                "php": ">=7.4.0"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.9.x-dev"
-                }
-            },
             "autoload": {
-                "psr-4": {
-                    "Charcoal\\": "src/Charcoal/"
-                }
+                "files": [
+                    "Function.HTML-Build-Attributes.php"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -530,503 +1202,22 @@
             ],
             "authors": [
                 {
-                    "name": "Mathieu Ducharme",
-                    "email": "mat@locomotive.ca"
-                },
-                {
-                    "name": "Locomotive",
-                    "homepage": "https://locomotive.ca"
+                    "name": "Chauncey McAskill",
+                    "email": "chauncey@mcaskill.ca",
+                    "homepage": "https://github.com/mcaskill"
                 }
             ],
-            "description": "Charcoal component for configuration data and object modeling",
-            "homepage": "https://locomotivemtl.github.io/charcoal-config/",
+            "description": "Generate a string of HTML attributes.",
             "keywords": [
-                "charcoal",
-                "configuration",
-                "ini",
-                "json",
-                "xml",
-                "yaml",
-                "yml"
+                "front-end",
+                "html",
+                "templating"
             ],
             "support": {
-                "issues": "https://github.com/locomotivemtl/charcoal-config/issues",
-                "source": "https://github.com/locomotivemtl/charcoal-config/tree/master"
+                "issues": "https://github.com/mcaskill/php-html-build-attributes/issues",
+                "source": "https://github.com/mcaskill/php-html-build-attributes/tree/v1.3.0"
             },
-            "time": "2019-11-04T20:30:30+00:00"
-        },
-        {
-            "name": "locomotivemtl/charcoal-core",
-            "version": "0.6.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/locomotivemtl/charcoal-core.git",
-                "reference": "e112254b9aa5365cf630659c09314d292dd7fc59"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/locomotivemtl/charcoal-core/zipball/e112254b9aa5365cf630659c09314d292dd7fc59",
-                "reference": "e112254b9aa5365cf630659c09314d292dd7fc59",
-                "shasum": ""
-            },
-            "require": {
-                "ext-mbstring": "*",
-                "ext-pdo": "*",
-                "locomotivemtl/charcoal-cache": "~0.1",
-                "locomotivemtl/charcoal-config": "~0.9",
-                "locomotivemtl/charcoal-factory": "~0.4",
-                "locomotivemtl/charcoal-property": "~0.10",
-                "locomotivemtl/charcoal-view": "~0.3",
-                "php": ">=5.6.0 || >=7.0",
-                "pimple/pimple": "^3.0",
-                "psr/cache": "^1.0",
-                "psr/log": "^1.0"
-            },
-            "require-dev": {
-                "cache/void-adapter": "^0.3.0",
-                "locomotivemtl/charcoal-app": "^0.4",
-                "mockery/mockery": "^0.9.6",
-                "php-coveralls/php-coveralls": "^2.0",
-                "phpunit/phpunit": "^5.7 || ^6.5",
-                "squizlabs/php_codesniffer": "^3.0",
-                "tedivm/stash": "~0.14"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.6.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Charcoal\\": "src/Charcoal"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Mathieu Ducharme",
-                    "email": "mat@locomotive.ca"
-                },
-                {
-                    "name": "Locomotive",
-                    "homepage": "https://locomotive.ca"
-                }
-            ],
-            "description": "Charcoal Web Framework",
-            "homepage": "https://charcoal.locomotive.ca",
-            "keywords": [
-                "charcoal",
-                "cms",
-                "framework",
-                "locomotive"
-            ],
-            "support": {
-                "issues": "https://github.com/locomotivemtl/charcoal-core/issues",
-                "source": "https://github.com/locomotivemtl/charcoal-core/tree/0.6.4"
-            },
-            "time": "2021-12-17T18:00:59+00:00"
-        },
-        {
-            "name": "locomotivemtl/charcoal-factory",
-            "version": "0.4.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/locomotivemtl/charcoal-factory.git",
-                "reference": "c3464f9f94e5894dbcf7e693f6e3ae2cc64044db"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/locomotivemtl/charcoal-factory/zipball/c3464f9f94e5894dbcf7e693f6e3ae2cc64044db",
-                "reference": "c3464f9f94e5894dbcf7e693f6e3ae2cc64044db",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.6.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^5.7",
-                "satooshi/php-coveralls": "^1.0",
-                "squizlabs/php_codesniffer": "^2.4"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.4.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Charcoal\\": "src/Charcoal/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Mathieu Ducharme",
-                    "email": "mat@locomotive.ca"
-                },
-                {
-                    "name": "Locomotive",
-                    "homepage": "http://locomotive.ca"
-                }
-            ],
-            "description": "Charcoal object creation (Factory, AbstractFactory, Builder, Class Resolver)",
-            "homepage": "https://charcoal.locomotive.ca",
-            "keywords": [
-                "charcoal"
-            ],
-            "support": {
-                "issues": "https://github.com/locomotivemtl/charcoal-factory/issues",
-                "source": "https://github.com/locomotivemtl/charcoal-factory/tree/0.4.2"
-            },
-            "time": "2017-10-13T12:38:38+00:00"
-        },
-        {
-            "name": "locomotivemtl/charcoal-image",
-            "version": "v0.4.3.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/locomotivemtl/charcoal-image.git",
-                "reference": "d94c2b9809c12fe63bac05702db6124537d843c5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/locomotivemtl/charcoal-image/zipball/d94c2b9809c12fe63bac05702db6124537d843c5",
-                "reference": "d94c2b9809c12fe63bac05702db6124537d843c5",
-                "shasum": ""
-            },
-            "require": {
-                "locomotivemtl/charcoal-factory": "^0.4",
-                "php": ">=5.6.0 || >=7.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^5.7 || ^6.5",
-                "satooshi/php-coveralls": "^2.0",
-                "squizlabs/php_codesniffer": "^3.0"
-            },
-            "suggest": {
-                "ext-SimpleXML": "To parse sprite (SVG) property.",
-                "ext-imagick": "To use the imagick driver."
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.4.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Charcoal\\": "src/Charcoal"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Mathieu Ducharme",
-                    "email": "mat@locomotive.ca"
-                }
-            ],
-            "description": "PHP Image manipulation library",
-            "keywords": [
-                "ImageMagick",
-                "charcoal",
-                "gd",
-                "image",
-                "imagick",
-                "locomotive",
-                "php"
-            ],
-            "support": {
-                "issues": "https://github.com/locomotivemtl/charcoal-image/issues",
-                "source": "https://github.com/locomotivemtl/charcoal-image/tree/v0.4.3.4"
-            },
-            "time": "2024-01-30T17:56:00+00:00"
-        },
-        {
-            "name": "locomotivemtl/charcoal-object",
-            "version": "0.8.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/locomotivemtl/charcoal-object.git",
-                "reference": "cfead6ca794b5dbda9671f334f6de93a7dffc36f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/locomotivemtl/charcoal-object/zipball/cfead6ca794b5dbda9671f334f6de93a7dffc36f",
-                "reference": "cfead6ca794b5dbda9671f334f6de93a7dffc36f",
-                "shasum": ""
-            },
-            "require": {
-                "locomotivemtl/charcoal-config": "~0.10",
-                "locomotivemtl/charcoal-core": "~0.5",
-                "locomotivemtl/charcoal-factory": "~0.4",
-                "locomotivemtl/charcoal-translator": "~0.3",
-                "php": "^7.3 || ^8.0",
-                "psr/log": "^1.0"
-            },
-            "require-dev": {
-                "php-coveralls/php-coveralls": "^2.0",
-                "phpunit/phpunit": "^9.0",
-                "pimple/pimple": "^3.0",
-                "seld/jsonlint": "^1.8",
-                "squizlabs/php_codesniffer": "^3.5",
-                "tedivm/stash": "~0.16"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.8.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Charcoal\\Object\\": "src/Charcoal/Object"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Mathieu Ducharme",
-                    "email": "mat@locomotive.ca"
-                }
-            ],
-            "description": "Object (Content and UserData) definition and object behaviors and tools.",
-            "support": {
-                "issues": "https://github.com/locomotivemtl/charcoal-object/issues",
-                "source": "https://github.com/locomotivemtl/charcoal-object/tree/0.8.1"
-            },
-            "time": "2024-01-29T23:58:14+00:00"
-        },
-        {
-            "name": "locomotivemtl/charcoal-property",
-            "version": "0.11.1.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/locomotivemtl/charcoal-property.git",
-                "reference": "5df2d23b72f60f96faf8e2e45a85e19848c6d3c4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/locomotivemtl/charcoal-property/zipball/5df2d23b72f60f96faf8e2e45a85e19848c6d3c4",
-                "reference": "5df2d23b72f60f96faf8e2e45a85e19848c6d3c4",
-                "shasum": ""
-            },
-            "require": {
-                "ext-fileinfo": "*",
-                "ext-pdo": "*",
-                "ext-simplexml": "*",
-                "locomotivemtl/charcoal-config": "~0.9",
-                "locomotivemtl/charcoal-core": "~0.6",
-                "locomotivemtl/charcoal-factory": "~0.4",
-                "locomotivemtl/charcoal-image": "~0.4",
-                "locomotivemtl/charcoal-translator": "~0.3",
-                "php": ">=5.6.0 || >=7.0",
-                "psr/cache": "^1.0",
-                "psr/log": "^1.0"
-            },
-            "require-dev": {
-                "cache/void-adapter": "^0.3.0",
-                "mustache/mustache": "^2.11",
-                "php-coveralls/php-coveralls": "^2.0",
-                "phpunit/phpunit": "^5.7 || ^6.5",
-                "pimple/pimple": "^3.0",
-                "squizlabs/php_codesniffer": "^3.0",
-                "tedivm/stash": "~0.14"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.11.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Charcoal\\": "src/Charcoal/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Mathieu Ducharme",
-                    "email": "mat@locomotive.ca"
-                },
-                {
-                    "name": "Locomotive",
-                    "homepage": "https://locomotive.ca"
-                }
-            ],
-            "description": "Charcoal Property defines an object (provides metadata)",
-            "homepage": "https://charcoal.locomotive.ca",
-            "keywords": [
-                "charcoal"
-            ],
-            "support": {
-                "issues": "https://github.com/locomotivemtl/charcoal-property/issues",
-                "source": "https://github.com/locomotivemtl/charcoal-property/tree/0.11.1.4"
-            },
-            "time": "2023-09-28T21:35:51+00:00"
-        },
-        {
-            "name": "locomotivemtl/charcoal-translator",
-            "version": "0.3.7.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/locomotivemtl/charcoal-translator.git",
-                "reference": "00807978373779299397f4a8d1f2c2666612e451"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/locomotivemtl/charcoal-translator/zipball/00807978373779299397f4a8d1f2c2666612e451",
-                "reference": "00807978373779299397f4a8d1f2c2666612e451",
-                "shasum": ""
-            },
-            "require": {
-                "locomotivemtl/charcoal-config": "~0.8",
-                "php": ">=5.6.0 || >=7.0",
-                "pimple/pimple": "^3.0",
-                "symfony/translation": "^3.4"
-            },
-            "require-dev": {
-                "locomotivemtl/charcoal-admin": "~0.8",
-                "mockery/mockery": "^0.9",
-                "php-coveralls/php-coveralls": "^2.0",
-                "phpunit/phpunit": "^5.7 || ^6.5",
-                "squizlabs/php_codesniffer": "^3.0"
-            },
-            "suggest": {
-                "locomotivemtl/charcoal-app": "To run the parser script."
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.3.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Charcoal\\": "src/Charcoal/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Mathieu Ducharme",
-                    "email": "mat@locomotive.ca"
-                },
-                {
-                    "name": "Locomotive",
-                    "homepage": "https://locomotive.ca"
-                }
-            ],
-            "description": "Charcoal service provider for translating messages and managing locales.",
-            "homepage": "https://locomotivemtl.github.io/charcoal-translator/",
-            "keywords": [
-                "charcoal",
-                "g11n",
-                "i18n",
-                "l10n",
-                "translation",
-                "translator"
-            ],
-            "support": {
-                "issues": "https://github.com/locomotivemtl/charcoal-translator/issues",
-                "source": "https://github.com/locomotivemtl/charcoal-translator/tree/0.3.7.1"
-            },
-            "time": "2020-03-09T17:20:22+00:00"
-        },
-        {
-            "name": "locomotivemtl/charcoal-view",
-            "version": "0.4.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/locomotivemtl/charcoal-view.git",
-                "reference": "9c9db5835c0d46a5173aa7293894d1bf8c7571be"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/locomotivemtl/charcoal-view/zipball/9c9db5835c0d46a5173aa7293894d1bf8c7571be",
-                "reference": "9c9db5835c0d46a5173aa7293894d1bf8c7571be",
-                "shasum": ""
-            },
-            "require": {
-                "erusev/parsedown": "^1.7",
-                "locomotivemtl/charcoal-config": "~0.8",
-                "php": ">=5.6.0 || >=7.0",
-                "psr/http-message": "^1.0",
-                "psr/log": "^1.0"
-            },
-            "require-dev": {
-                "locomotivemtl/charcoal-translator": "~0.3",
-                "mustache/mustache": "^2.11",
-                "php-coveralls/php-coveralls": "^2.0",
-                "phpunit/phpunit": "^5.7 || ^6.5",
-                "pimple/pimple": "^3.0",
-                "slim/slim": "^3.7",
-                "squizlabs/php_codesniffer": "^3.0",
-                "twig/twig": "^1.31"
-            },
-            "suggest": {
-                "mustache/mustache": "Mustache is suggested as the default templating engine.",
-                "twig/twig": "Twig is a second templating engine option, offering more features but not as integrated within Charcoal."
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.4.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Charcoal\\": "src/Charcoal/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Mathieu Ducharme",
-                    "email": "mat@locomotive.ca"
-                },
-                {
-                    "name": "Locomotive",
-                    "homepage": "https://locomotive.ca"
-                }
-            ],
-            "description": "Charcoal View (templates rendering and tools)",
-            "homepage": "https://charcoal.locomotive.ca",
-            "keywords": [
-                "charcoal",
-                "mustache",
-                "templates",
-                "twig",
-                "view"
-            ],
-            "support": {
-                "issues": "https://github.com/locomotivemtl/charcoal-view/issues",
-                "source": "https://github.com/locomotivemtl/charcoal-view/tree/0.4.0"
-            },
-            "time": "2019-11-04T20:17:57+00:00"
+            "time": "2023-08-09T03:09:43+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -1163,6 +1354,162 @@
                 "source": "https://github.com/nikic/FastRoute/tree/master"
             },
             "time": "2018-02-13T20:26:39+00:00"
+        },
+        {
+            "name": "phpmailer/phpmailer",
+            "version": "v6.9.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PHPMailer/PHPMailer.git",
+                "reference": "039de174cd9c17a8389754d3b877a2ed22743e18"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PHPMailer/PHPMailer/zipball/039de174cd9c17a8389754d3b877a2ed22743e18",
+                "reference": "039de174cd9c17a8389754d3b877a2ed22743e18",
+                "shasum": ""
+            },
+            "require": {
+                "ext-ctype": "*",
+                "ext-filter": "*",
+                "ext-hash": "*",
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+                "doctrine/annotations": "^1.2.6 || ^1.13.3",
+                "php-parallel-lint/php-console-highlighter": "^1.0.0",
+                "php-parallel-lint/php-parallel-lint": "^1.3.2",
+                "phpcompatibility/php-compatibility": "^9.3.5",
+                "roave/security-advisories": "dev-latest",
+                "squizlabs/php_codesniffer": "^3.7.2",
+                "yoast/phpunit-polyfills": "^1.0.4"
+            },
+            "suggest": {
+                "decomplexity/SendOauth2": "Adapter for using XOAUTH2 authentication",
+                "ext-mbstring": "Needed to send email in multibyte encoding charset or decode encoded addresses",
+                "ext-openssl": "Needed for secure SMTP sending and DKIM signing",
+                "greew/oauth2-azure-provider": "Needed for Microsoft Azure XOAUTH2 authentication",
+                "hayageek/oauth2-yahoo": "Needed for Yahoo XOAUTH2 authentication",
+                "league/oauth2-google": "Needed for Google XOAUTH2 authentication",
+                "psr/log": "For optional PSR-3 debug logging",
+                "symfony/polyfill-mbstring": "To support UTF-8 if the Mbstring PHP extension is not enabled (^1.2)",
+                "thenetworg/oauth2-azure": "Needed for Microsoft XOAUTH2 authentication"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PHPMailer\\PHPMailer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1-only"
+            ],
+            "authors": [
+                {
+                    "name": "Marcus Bointon",
+                    "email": "phpmailer@synchromedia.co.uk"
+                },
+                {
+                    "name": "Jim Jagielski",
+                    "email": "jimjag@gmail.com"
+                },
+                {
+                    "name": "Andy Prevost",
+                    "email": "codeworxtech@users.sourceforge.net"
+                },
+                {
+                    "name": "Brent R. Matzelle"
+                }
+            ],
+            "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
+            "support": {
+                "issues": "https://github.com/PHPMailer/PHPMailer/issues",
+                "source": "https://github.com/PHPMailer/PHPMailer/tree/v6.9.1"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/Synchro",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-11-25T22:23:28+00:00"
+        },
+        {
+            "name": "phpoption/phpoption",
+            "version": "1.9.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/schmittjoh/php-option.git",
+                "reference": "80735db690fe4fc5c76dfa7f9b770634285fa820"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/schmittjoh/php-option/zipball/80735db690fe4fc5c76dfa7f9b770634285fa820",
+                "reference": "80735db690fe4fc5c76dfa7f9b770634285fa820",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2.5 || ^8.0"
+            },
+            "require-dev": {
+                "bamarni/composer-bin-plugin": "^1.8.2",
+                "phpunit/phpunit": "^8.5.34 || ^9.6.13 || ^10.4.2"
+            },
+            "type": "library",
+            "extra": {
+                "bamarni-bin": {
+                    "bin-links": true,
+                    "forward-command": true
+                },
+                "branch-alias": {
+                    "dev-master": "1.9-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "PhpOption\\": "src/PhpOption/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Johannes M. Schmitt",
+                    "email": "schmittjoh@gmail.com",
+                    "homepage": "https://github.com/schmittjoh"
+                },
+                {
+                    "name": "Graham Campbell",
+                    "email": "hello@gjcampbell.co.uk",
+                    "homepage": "https://github.com/GrahamCampbell"
+                }
+            ],
+            "description": "Option Type for PHP",
+            "keywords": [
+                "language",
+                "option",
+                "php",
+                "type"
+            ],
+            "support": {
+                "issues": "https://github.com/schmittjoh/php-option/issues",
+                "source": "https://github.com/schmittjoh/php-option/tree/1.9.2"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/GrahamCampbell",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/phpoption/phpoption",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2023-11-12T21:59:55+00:00"
         },
         {
             "name": "pimple/pimple",
@@ -1315,6 +1662,113 @@
             "time": "2021-11-05T16:50:12+00:00"
         },
         {
+            "name": "psr/http-client",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/http-client.git",
+                "reference": "bb5906edc1c324c9a05aa0873d40117941e5fa90"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/http-client/zipball/bb5906edc1c324c9a05aa0873d40117941e5fa90",
+                "reference": "bb5906edc1c324c9a05aa0873d40117941e5fa90",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0 || ^8.0",
+                "psr/http-message": "^1.0 || ^2.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Http\\Client\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "https://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for HTTP clients",
+            "homepage": "https://github.com/php-fig/http-client",
+            "keywords": [
+                "http",
+                "http-client",
+                "psr",
+                "psr-18"
+            ],
+            "support": {
+                "source": "https://github.com/php-fig/http-client"
+            },
+            "time": "2023-09-23T14:17:50+00:00"
+        },
+        {
+            "name": "psr/http-factory",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/http-factory.git",
+                "reference": "e616d01114759c4c489f93b099585439f795fe35"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/http-factory/zipball/e616d01114759c4c489f93b099585439f795fe35",
+                "reference": "e616d01114759c4c489f93b099585439f795fe35",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0.0",
+                "psr/http-message": "^1.0 || ^2.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Http\\Message\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "https://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interfaces for PSR-7 HTTP message factories",
+            "keywords": [
+                "factory",
+                "http",
+                "message",
+                "psr",
+                "psr-17",
+                "psr-7",
+                "request",
+                "response"
+            ],
+            "support": {
+                "source": "https://github.com/php-fig/http-factory/tree/1.0.2"
+            },
+            "time": "2023-04-10T20:10:41+00:00"
+        },
+        {
             "name": "psr/http-message",
             "version": "1.1",
             "source": {
@@ -1418,6 +1872,50 @@
             "time": "2021-05-03T11:20:27+00:00"
         },
         {
+            "name": "ralouphie/getallheaders",
+            "version": "3.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ralouphie/getallheaders.git",
+                "reference": "120b605dfeb996808c31b6477290a714d356e822"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ralouphie/getallheaders/zipball/120b605dfeb996808c31b6477290a714d356e822",
+                "reference": "120b605dfeb996808c31b6477290a714d356e822",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "php-coveralls/php-coveralls": "^2.1",
+                "phpunit/phpunit": "^5 || ^6.5"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/getallheaders.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ralph Khattar",
+                    "email": "ralph.khattar@gmail.com"
+                }
+            ],
+            "description": "A polyfill for getallheaders.",
+            "support": {
+                "issues": "https://github.com/ralouphie/getallheaders/issues",
+                "source": "https://github.com/ralouphie/getallheaders/tree/develop"
+            },
+            "time": "2019-03-08T08:55:37+00:00"
+        },
+        {
             "name": "seld/cli-prompt",
             "version": "1.0.4",
             "source": {
@@ -1471,6 +1969,70 @@
                 "source": "https://github.com/Seldaek/cli-prompt/tree/1.0.4"
             },
             "time": "2020-12-15T21:32:01+00:00"
+        },
+        {
+            "name": "seld/jsonlint",
+            "version": "1.10.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Seldaek/jsonlint.git",
+                "reference": "9bb7db07b5d66d90f6ebf542f09fc67d800e5259"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Seldaek/jsonlint/zipball/9bb7db07b5d66d90f6ebf542f09fc67d800e5259",
+                "reference": "9bb7db07b5d66d90f6ebf542f09fc67d800e5259",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.3 || ^7.0 || ^8.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^1.5",
+                "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.0 || ^8.5.13"
+            },
+            "bin": [
+                "bin/jsonlint"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Seld\\JsonLint\\": "src/Seld/JsonLint/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jordi Boggiano",
+                    "email": "j.boggiano@seld.be",
+                    "homepage": "https://seld.be"
+                }
+            ],
+            "description": "JSON Linter",
+            "keywords": [
+                "json",
+                "linter",
+                "parser",
+                "validator"
+            ],
+            "support": {
+                "issues": "https://github.com/Seldaek/jsonlint/issues",
+                "source": "https://github.com/Seldaek/jsonlint/tree/1.10.2"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/Seldaek",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/seld/jsonlint",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2024-02-07T12:57:50+00:00"
         },
         {
             "name": "slim/slim",
@@ -1609,47 +2171,112 @@
             "time": "2019-11-24T17:03:06+00:00"
         },
         {
-            "name": "symfony/console",
-            "version": "v5.4.35",
+            "name": "studio-42/elfinder",
+            "version": "2.1.64",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/console.git",
-                "reference": "dbdf6adcb88d5f83790e1efb57ef4074309d3931"
+                "url": "https://github.com/Studio-42/elFinder.git",
+                "reference": "deaa6797df1c6f288238b47284c9b593174bfc0f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/dbdf6adcb88d5f83790e1efb57ef4074309d3931",
-                "reference": "dbdf6adcb88d5f83790e1efb57ef4074309d3931",
+                "url": "https://api.github.com/repos/Studio-42/elFinder/zipball/deaa6797df1c6f288238b47284c9b593174bfc0f",
+                "reference": "deaa6797df1c6f288238b47284c9b593174bfc0f",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.2.5",
-                "symfony/deprecation-contracts": "^2.1|^3",
+                "php": ">=5.2"
+            },
+            "suggest": {
+                "barryvdh/elfinder-flysystem-driver": "VolumeDriver for elFinder to use Flysystem as a root.",
+                "google/apiclient": "VolumeDriver GoogleDrive require `google/apiclient:^2.0.",
+                "kunalvarma05/dropbox-php-sdk": "VolumeDriver `Dropbox`2 require `kunalvarma05/dropbox-php-sdk.",
+                "nao-pon/flysystem-google-drive": "require in GoogleDrive network volume mounting with Flysystem."
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Dmitry Levashov",
+                    "email": "dio@std42.ru",
+                    "homepage": "http://std42.ru"
+                },
+                {
+                    "name": "Troex Nevelin",
+                    "email": "troex@fury.scancode.ru",
+                    "homepage": "http://std42.ru"
+                },
+                {
+                    "name": "Naoki Sawada",
+                    "email": "hypweb+elfinder@gmail.com",
+                    "homepage": "http://xoops.hypweb.net"
+                },
+                {
+                    "name": "Community contributions",
+                    "homepage": "https://github.com/Studio-42/elFinder/contributors"
+                }
+            ],
+            "description": "File manager for web",
+            "homepage": "http://elfinder.org",
+            "support": {
+                "issues": "https://github.com/Studio-42/elFinder/issues",
+                "source": "https://github.com/Studio-42/elFinder/tree/2.1.64"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/nao-pon",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-12-20T07:43:10+00:00"
+        },
+        {
+            "name": "symfony/console",
+            "version": "v4.4.49",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/console.git",
+                "reference": "33fa45ffc81fdcc1ca368d4946da859c8cdb58d9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/console/zipball/33fa45ffc81fdcc1ca368d4946da859c8cdb58d9",
+                "reference": "33fa45ffc81fdcc1ca368d4946da859c8cdb58d9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.3",
                 "symfony/polyfill-mbstring": "~1.0",
-                "symfony/polyfill-php73": "^1.9",
+                "symfony/polyfill-php73": "^1.8",
                 "symfony/polyfill-php80": "^1.16",
-                "symfony/service-contracts": "^1.1|^2|^3",
-                "symfony/string": "^5.1|^6.0"
+                "symfony/service-contracts": "^1.1|^2"
             },
             "conflict": {
                 "psr/log": ">=3",
-                "symfony/dependency-injection": "<4.4",
-                "symfony/dotenv": "<5.1",
-                "symfony/event-dispatcher": "<4.4",
+                "symfony/dependency-injection": "<3.4",
+                "symfony/event-dispatcher": "<4.3|>=5",
                 "symfony/lock": "<4.4",
-                "symfony/process": "<4.4"
+                "symfony/process": "<3.3"
             },
             "provide": {
                 "psr/log-implementation": "1.0|2.0"
             },
             "require-dev": {
                 "psr/log": "^1|^2",
-                "symfony/config": "^4.4|^5.0|^6.0",
-                "symfony/dependency-injection": "^4.4|^5.0|^6.0",
-                "symfony/event-dispatcher": "^4.4|^5.0|^6.0",
-                "symfony/lock": "^4.4|^5.0|^6.0",
-                "symfony/process": "^4.4|^5.0|^6.0",
-                "symfony/var-dumper": "^4.4|^5.0|^6.0"
+                "symfony/config": "^3.4|^4.0|^5.0",
+                "symfony/dependency-injection": "^3.4|^4.0|^5.0",
+                "symfony/event-dispatcher": "^4.3",
+                "symfony/lock": "^4.4|^5.0",
+                "symfony/process": "^3.4|^4.0|^5.0",
+                "symfony/var-dumper": "^4.3|^5.0"
             },
             "suggest": {
                 "psr/log": "For using the console logger",
@@ -1682,14 +2309,8 @@
             ],
             "description": "Eases the creation of beautiful and testable command line interfaces",
             "homepage": "https://symfony.com",
-            "keywords": [
-                "cli",
-                "command-line",
-                "console",
-                "terminal"
-            ],
             "support": {
-                "source": "https://github.com/symfony/console/tree/v5.4.35"
+                "source": "https://github.com/symfony/console/tree/v4.4.49"
             },
             "funding": [
                 {
@@ -1705,7 +2326,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-01-23T14:28:09+00:00"
+            "time": "2022-11-05T17:10:16+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -1981,165 +2602,6 @@
             "time": "2024-01-29T20:11:03+00:00"
         },
         {
-            "name": "symfony/polyfill-intl-grapheme",
-            "version": "v1.29.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/polyfill-intl-grapheme.git",
-                "reference": "32a9da87d7b3245e09ac426c83d334ae9f06f80f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-intl-grapheme/zipball/32a9da87d7b3245e09ac426c83d334ae9f06f80f",
-                "reference": "32a9da87d7b3245e09ac426c83d334ae9f06f80f",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.1"
-            },
-            "suggest": {
-                "ext-intl": "For best performance"
-            },
-            "type": "library",
-            "extra": {
-                "thanks": {
-                    "name": "symfony/polyfill",
-                    "url": "https://github.com/symfony/polyfill"
-                }
-            },
-            "autoload": {
-                "files": [
-                    "bootstrap.php"
-                ],
-                "psr-4": {
-                    "Symfony\\Polyfill\\Intl\\Grapheme\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony polyfill for intl's grapheme_* functions",
-            "homepage": "https://symfony.com",
-            "keywords": [
-                "compatibility",
-                "grapheme",
-                "intl",
-                "polyfill",
-                "portable",
-                "shim"
-            ],
-            "support": {
-                "source": "https://github.com/symfony/polyfill-intl-grapheme/tree/v1.29.0"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2024-01-29T20:11:03+00:00"
-        },
-        {
-            "name": "symfony/polyfill-intl-normalizer",
-            "version": "v1.29.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/polyfill-intl-normalizer.git",
-                "reference": "bc45c394692b948b4d383a08d7753968bed9a83d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-intl-normalizer/zipball/bc45c394692b948b4d383a08d7753968bed9a83d",
-                "reference": "bc45c394692b948b4d383a08d7753968bed9a83d",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.1"
-            },
-            "suggest": {
-                "ext-intl": "For best performance"
-            },
-            "type": "library",
-            "extra": {
-                "thanks": {
-                    "name": "symfony/polyfill",
-                    "url": "https://github.com/symfony/polyfill"
-                }
-            },
-            "autoload": {
-                "files": [
-                    "bootstrap.php"
-                ],
-                "psr-4": {
-                    "Symfony\\Polyfill\\Intl\\Normalizer\\": ""
-                },
-                "classmap": [
-                    "Resources/stubs"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony polyfill for intl's Normalizer class and related functions",
-            "homepage": "https://symfony.com",
-            "keywords": [
-                "compatibility",
-                "intl",
-                "normalizer",
-                "polyfill",
-                "portable",
-                "shim"
-            ],
-            "support": {
-                "source": "https://github.com/symfony/polyfill-intl-normalizer/tree/v1.29.0"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2024-01-29T20:11:03+00:00"
-        },
-        {
             "name": "symfony/polyfill-mbstring",
             "version": "v1.29.0",
             "source": {
@@ -2376,6 +2838,67 @@
             "time": "2024-01-29T20:11:03+00:00"
         },
         {
+            "name": "symfony/process",
+            "version": "v3.4.47",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/process.git",
+                "reference": "b8648cf1d5af12a44a51d07ef9bf980921f15fca"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/process/zipball/b8648cf1d5af12a44a51d07ef9bf980921f15fca",
+                "reference": "b8648cf1d5af12a44a51d07ef9bf980921f15fca",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.5.9|>=7.0.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Process\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Process Component",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/process/tree/v3.4.47"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-10-24T10:57:07+00:00"
+        },
+        {
             "name": "symfony/service-contracts",
             "version": "v2.5.2",
             "source": {
@@ -2457,92 +2980,6 @@
                 }
             ],
             "time": "2022-05-30T19:17:29+00:00"
-        },
-        {
-            "name": "symfony/string",
-            "version": "v5.4.35",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/string.git",
-                "reference": "c209c4d0559acce1c9a2067612cfb5d35756edc2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/string/zipball/c209c4d0559acce1c9a2067612cfb5d35756edc2",
-                "reference": "c209c4d0559acce1c9a2067612cfb5d35756edc2",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2.5",
-                "symfony/polyfill-ctype": "~1.8",
-                "symfony/polyfill-intl-grapheme": "~1.0",
-                "symfony/polyfill-intl-normalizer": "~1.0",
-                "symfony/polyfill-mbstring": "~1.0",
-                "symfony/polyfill-php80": "~1.15"
-            },
-            "conflict": {
-                "symfony/translation-contracts": ">=3.0"
-            },
-            "require-dev": {
-                "symfony/error-handler": "^4.4|^5.0|^6.0",
-                "symfony/http-client": "^4.4|^5.0|^6.0",
-                "symfony/translation-contracts": "^1.1|^2",
-                "symfony/var-exporter": "^4.4|^5.0|^6.0"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "Resources/functions.php"
-                ],
-                "psr-4": {
-                    "Symfony\\Component\\String\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Provides an object-oriented API to strings and deals with bytes, UTF-8 code points and grapheme clusters in a unified way",
-            "homepage": "https://symfony.com",
-            "keywords": [
-                "grapheme",
-                "i18n",
-                "string",
-                "unicode",
-                "utf-8",
-                "utf8"
-            ],
-            "support": {
-                "source": "https://github.com/symfony/string/tree/v5.4.35"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2024-01-23T13:51:25+00:00"
         },
         {
             "name": "symfony/translation",
@@ -2701,6 +3138,90 @@
                 }
             ],
             "time": "2022-07-26T14:15:03+00:00"
+        },
+        {
+            "name": "vlucas/phpdotenv",
+            "version": "v5.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vlucas/phpdotenv.git",
+                "reference": "2cf9fb6054c2bb1d59d1f3817706ecdb9d2934c4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/2cf9fb6054c2bb1d59d1f3817706ecdb9d2934c4",
+                "reference": "2cf9fb6054c2bb1d59d1f3817706ecdb9d2934c4",
+                "shasum": ""
+            },
+            "require": {
+                "ext-pcre": "*",
+                "graham-campbell/result-type": "^1.1.2",
+                "php": "^7.2.5 || ^8.0",
+                "phpoption/phpoption": "^1.9.2",
+                "symfony/polyfill-ctype": "^1.24",
+                "symfony/polyfill-mbstring": "^1.24",
+                "symfony/polyfill-php80": "^1.24"
+            },
+            "require-dev": {
+                "bamarni/composer-bin-plugin": "^1.8.2",
+                "ext-filter": "*",
+                "phpunit/phpunit": "^8.5.34 || ^9.6.13 || ^10.4.2"
+            },
+            "suggest": {
+                "ext-filter": "Required to use the boolean validator."
+            },
+            "type": "library",
+            "extra": {
+                "bamarni-bin": {
+                    "bin-links": true,
+                    "forward-command": true
+                },
+                "branch-alias": {
+                    "dev-master": "5.6-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dotenv\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Graham Campbell",
+                    "email": "hello@gjcampbell.co.uk",
+                    "homepage": "https://github.com/GrahamCampbell"
+                },
+                {
+                    "name": "Vance Lucas",
+                    "email": "vance@vancelucas.com",
+                    "homepage": "https://github.com/vlucas"
+                }
+            ],
+            "description": "Loads environment variables from `.env` to `getenv()`, `$_ENV` and `$_SERVER` automagically.",
+            "keywords": [
+                "dotenv",
+                "env",
+                "environment"
+            ],
+            "support": {
+                "issues": "https://github.com/vlucas/phpdotenv/issues",
+                "source": "https://github.com/vlucas/phpdotenv/tree/v5.6.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/GrahamCampbell",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/vlucas/phpdotenv",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2023-11-12T22:43:29+00:00"
         }
     ],
     "packages-dev": [],
@@ -2710,7 +3231,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.4|^8.0"
+        "php": "^7.4"
     },
     "platform-dev": [],
     "plugin-api-version": "2.6.0"
