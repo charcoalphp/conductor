@@ -17,11 +17,12 @@ Replace `{PHP_EXE}` with the path of your php executable
 source <(conductor _completion -g -p conductor)
 ```
 ## Commands
-| Command      | Description                                     |
-| ------------ | ----------------------------------------------- |
-| help         | Display help for a command                      |
-| list         | List commands                                   |
-| models:list  | List all registered Models                      |
-| models:sync  | Synchronize the database with model definitions |
-| scripts:list | List all charcoal scripts                       |
-| scripts:run  | Run a charcoal script                           |
+| Command        | Description                                     |
+| -------------- | ----------------------------------------------- |
+| help           | Display help for a command                      |
+| list           | List commands                                   |
+| models:list    | List all registered Models                      |
+| models:sync    | Synchronize the database with model definitions |
+| scripts:list   | List all charcoal scripts                       |
+| scripts:run    | Run a charcoal script                           |
+| project:create | Create a new charcoal project                   |

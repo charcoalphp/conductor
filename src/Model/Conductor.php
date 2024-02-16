@@ -39,6 +39,7 @@ final class Conductor
             new Command\Models\SyncModels(),
             new Command\Scripts\ListScripts(),
             new Command\Scripts\RunScript(),
+            new Command\Project\CreateProject(),
         ]);
 
         return;
