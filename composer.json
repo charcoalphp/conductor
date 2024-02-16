@@ -20,9 +20,9 @@
         "charcoal/charcoal": "*",
         "slim/slim": "*",
         "stecman/symfony-console-completion": "^0.11.0",
-        "symfony/filesystem": "*",
-        "symfony/console": "*",
-        "symfony/finder": "*"
+        "symfony/filesystem": "^5.0",
+        "symfony/console": "^4.0",
+        "symfony/finder": "^5.0"
     },
     "bin": [
         "conductor"
