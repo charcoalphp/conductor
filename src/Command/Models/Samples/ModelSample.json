@@ -1,0 +1,13 @@
+{
+    "properties": {
+        "master": {
+            "obj_type": "{NAMESPACE}/{OBJECT_TYPE}"
+        }
+    },
+    "sources": {
+        "default": {
+            "table": "app_{OBJECT_TYPE_SNAKE}s"
+        }
+    },
+    "default_source": "default"
+}
