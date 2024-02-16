@@ -25,7 +25,7 @@ class RunScript extends AbstractCommand implements CompletionAwareInterface
             ->setDescription('Run a charcoal script.')
             ->addArgument('script', InputArgument::REQUIRED, 'The charcoal script you want to execute.')
             ->setHelp(<<<'EOF'
-The <info>%command.name%</info> command displays a list of all registered scripts within your Charcoal project
+The <info>%command.name%</info> command executes a given script within your Charcoal project
 EOF
             );
     }

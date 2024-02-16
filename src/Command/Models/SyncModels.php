@@ -40,7 +40,7 @@ class SyncModels extends AbstractCommand implements CompletionAwareInterface
             ->addOption('create-only', null, InputOption::VALUE_NONE, 'Create only')
             ->addOption('dry', null, InputOption::VALUE_NONE, 'Dry-run')
             ->setHelp(<<<'EOF'
-The <info>%command.name%</info> command displays a list of all registered models/objects within your Charcoal project
+The <info>%command.name%</info> command synchronizes your database with the registered models/objects within your Charcoal project
 EOF
             );
     }
