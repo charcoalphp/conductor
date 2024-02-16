@@ -36,7 +36,10 @@ EOF
             return [];
         }
 
-        $scripts = $this->getProjectScripts();
+        $scripts = array_map(function ($script) {
+            return $script['ident'];
+        }, $this->getProjectScripts());
+
         $word    = $context->getCurrentWord();
         $suggestions = [];
 

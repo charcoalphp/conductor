@@ -7,6 +7,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Charcoal\Conductor\Command\AbstractCommand;
+use Symfony\Component\Console\Helper\Table;
 
 class ListScripts extends AbstractCommand
 {
@@ -35,9 +36,20 @@ EOF
 
         $scripts = $this->getProjectScripts();
 
-        foreach ($scripts as $scriptName) {
-            $output->writeln($scriptName);
+        $table = new Table($output);
+        $table->setHeaders([
+            'Command',
+            'Description',
+        ]);
+
+        foreach ($scripts as $script) {
+            $table->addRow([
+                $script['ident'],
+                $script['description'] ?? ''
+            ]);
         }
+
+        $table->render();
 
         return 0;
     }

@@ -42,17 +42,17 @@ abstract class AbstractCommand extends Command
         $scripts = !empty($routes['scripts']) ? $routes['scripts'] : [];
 
         foreach ($scripts as &$script) {
-            $script = $script['ident'];
-            $script = str_replace('/script', '', $script);
+            $ident = $script['ident'];
+            $script['ident'] = str_replace('/script', '', $ident);
         }
 
         $admin_routes = $container['admin/config']['routes'] ?? [];
         $admin_scripts = !empty($admin_routes['scripts']) ? $admin_routes['scripts'] : [];
 
         foreach ($admin_scripts as &$script) {
-            $script = $script['ident'];
-            $script = str_replace('charcoal/', '', $script);
-            $script = str_replace('/script', '', $script);
+            $ident = $script['ident'];
+            $script['ident'] = str_replace('charcoal/', '', $ident);
+            $script['ident'] = str_replace('/script', '', $ident);
         }
 
         $all_scripts = array_values(array_merge($scripts, $admin_scripts));
