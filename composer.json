@@ -15,16 +15,20 @@
         }
     ],
     "require": {
-        "php": "^7.4 || ^8.0",
+        "php": "^7.4|^8.0",
         "symfony/filesystem": "*",
         "symfony/console": "*",
         "symfony/finder": "*",
         "locomotivemtl/charcoal-app": "*",
         "locomotivemtl/charcoal-core": "*",
         "locomotivemtl/charcoal-factory": "*",
-        "locomotivemtl/charcoal-attachment": "^0.11.0"
+        "locomotivemtl/charcoal-attachment": "^0.11.0",
+        "slim/slim": "*"
     },
     "bin": [
         "conductor"
-    ]
+    ],
+    "config": {
+        "platform-check": false
+    }
 }
