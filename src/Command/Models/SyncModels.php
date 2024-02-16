@@ -79,13 +79,15 @@ EOF
 
     private function getModels(OutputInterface $output)
     {
-        $model_factory = $this->getProjectApp()->getContainer()->get('model/factory');
+        ob_start();
+        $modelFactory = $this->getProjectApp()->getContainer()->get('model/factory');
+        ob_end_clean();
 
-        if (!$model_factory) {
+        if (!$modelFactory) {
             return [];
         }
 
-        $models = $this->loadModels($model_factory, $output);
+        $models = $this->loadModels($modelFactory, $output);
         $models = array_filter($models, function ($model) {
             return !empty($model->metadata()->get('sources'));
         });

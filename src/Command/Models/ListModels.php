@@ -32,7 +32,9 @@ EOF
             return self::$FAILURE;
         }
 
+        ob_start();
         $modelFactory = $this->getProjectApp()->getContainer()->get('model/factory');
+        ob_end_clean();
 
         if (!$modelFactory) {
             return self::$SUCCESS;
