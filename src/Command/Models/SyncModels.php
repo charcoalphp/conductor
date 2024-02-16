@@ -32,7 +32,7 @@ class SyncModels extends AbstractCommand
         $this
             ->setName('models:sync')
             ->setDescription('Synchronize the database with model definitions.')
-            ->addArgument('operation', InputArgument::OPTIONAL, 'update or create')
+            ->addOption('create-only', null, InputOption::VALUE_OPTIONAL, 'Create only')
             ->addOption('dry', null, InputOption::VALUE_NONE, 'Dry-run')
             ->setHelp(<<<'EOF'
 The <info>%command.name%</info> command displays a list of all registered models/objects within your Charcoal project
@@ -70,19 +70,9 @@ EOF
             $output->writeln('<fg=red;options=bold>DRY RUN</>');
         }
 
-        switch ($input->getArgument('operation')) {
-            case 'create':
-                $do_create = true;
-                break;
 
-            case 'update':
-                $do_update = true;
-                break;
-
-            default:
-                $do_create = $do_update = true;
-                break;
-        }
+        $do_create = true;
+        $do_update = ($input->getOption('create-only') ?? false) == false;
 
         $output->writeln(sprintf(
             '%s %d Model%s',
