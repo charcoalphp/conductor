@@ -35,6 +35,7 @@ final class Conductor
     {
         $this->getConsole()->addCommands([
             new CompletionCommand(),
+            new Command\Models\CreateModel(),
             new Command\Models\ListModels(),
             new Command\Models\SyncModels(),
             new Command\Scripts\ListScripts(),
