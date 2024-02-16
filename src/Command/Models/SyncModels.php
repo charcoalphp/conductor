@@ -13,6 +13,8 @@ use Charcoal\Source\DatabaseSource;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Helper\Table;
 use Charcoal\Conductor\Command\AbstractCommand;
+use Charcoal\Model\Model;
+use Charcoal\Property\AbstractProperty;
 
 class SyncModels extends AbstractCommand
 {
@@ -114,7 +116,11 @@ EOF
     {
         $class_name = get_class($model);
         $output->write(sprintf('<fg=green>Creating table</> for <fg=yellow;options=bold>%s</>', $class_name));
-        $model->source()->createTable();
+
+        /** @var DatabaseSource $source */
+        $source = $model->source();
+        $source->createTable();
+
         $output->writeln(sprintf(' - %ss', $this->timer()->stop()));
     }
 
@@ -128,10 +134,13 @@ EOF
             $changes->render();
 
             if (!$this->isDryRun) {
-                $model->source()->alterTable();
+                /** @var DatabaseSource $source */
+                $source = $model->source();
+                $source->alterTable();
+
                 $output->writeln(sprintf(
                     '<fg=green>Updated %s - %ss</>',
-                    $model->source()->table(),
+                    $source->table(),
                     $this->timer()->stop()
                 ));
             }
@@ -207,10 +216,12 @@ EOF
 
     private function getModelFields(ModelInterface $model)
     {
+        /** @var Model $model */
         $properties = array_keys($model->metadata()->properties());
 
         $fields = [];
         foreach ($properties as $propertyIdent) {
+            /** @var AbstractProperty $prop */
             $prop = $model->property($propertyIdent);
             if (!$prop || !$prop['active'] || !$prop['storable']) {
                 continue;
