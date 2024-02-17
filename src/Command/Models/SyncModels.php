@@ -102,7 +102,11 @@ EOF
             return self::$FAILURE;
         }
 
-        if (!$this->getProjectApp()->getContainer()->get('model/factory')) {
+        ob_start();
+        $modelFactory = $this->getProjectApp()->getContainer()->get('model/factory');
+        ob_end_clean();
+
+        if (!$modelFactory) {
             $this->writeError('Failed to get model factory from app container', $output);
             return self::$FAILURE;
         }
@@ -142,17 +146,55 @@ EOF
             $modelsCount === 1 ? '' : 's'
         ));
 
+        $createCount = 0;
+        $updateCount = 0;
+
         foreach ($models as $model) {
             $this->timer()->start();
 
-            if ($do_create && !$model->source()->tableExists()) {
-                $this->createTable($model, $output);
-            } elseif ($do_update) {
-                $this->updateTable($model, $output);
+            try {
+                if ($do_create && !$model->source()->tableExists()) {
+                    $this->createTable($model, $output);
+                    $createCount++;
+                } elseif ($do_update) {
+                    $this->updateTable($model, $output);
+                    $updateCount++;
+                }
+            } catch (\Throwable $th) {
+                $this->timer()->stop();
+                $this->writeError($th->getMessage(), $output);
+                $output->writeln(sprintf(
+                    '<fg=red>Failed to synchronize model: %s</>',
+                    $model::objType()
+                ));
             }
         }
 
         $output->writeln('<info>All Done!</info>');
+
+        $messages = [];
+
+        if ($createCount) {
+            $messages[] = sprintf(
+                'created %s %s',
+                $createCount,
+                $createCount == 1 ? 'table' : 'tables'
+            );
+        }
+
+        if ($updateCount) {
+            $messages[] = sprintf(
+                'updated %s %s',
+                $updateCount,
+                $updateCount == 1 ? 'table' : 'tables'
+            );
+        }
+
+        $message = ucfirst(implode(' and ', $messages));
+
+        if (!empty($message)) {
+            $output->writeln(sprintf('<info>%s</info>', $message));
+        }
 
         return self::$SUCCESS;
     }
@@ -160,13 +202,19 @@ EOF
     private function createTable(ModelInterface $model, OutputInterface $output)
     {
         $class_name = get_class($model);
-        $output->write(sprintf('<fg=green>Creating table</> for <fg=yellow;options=bold>%s</>', $class_name));
+        $output->writeln(sprintf('<fg=green>Creating table</> for <fg=yellow;options=bold>%s</>', $class_name));
 
-        /** @var DatabaseSource $source */
-        $source = $model->source();
-        $source->createTable();
+        if (!$this->isDryRun) {
+            /** @var DatabaseSource $source */
+            $source = $model->source();
+            $source->createTable();
 
-        $output->writeln(sprintf(' - %ss', $this->timer()->stop()));
+            $output->writeln(sprintf(
+                '<fg=green>Created table: %s - %ss</>',
+                $source->table(),
+                $this->timer()->stop()
+            ));
+        }
     }
 
     private function updateTable(ModelInterface $model, OutputInterface $output)
