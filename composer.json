@@ -19,10 +19,10 @@
         "php": "^7.4|^8.0",
         "charcoal/charcoal": "*",
         "slim/slim": "*",
-        "symfony/filesystem": "*",
-        "symfony/console": "*",
-        "symfony/finder": "*",
-        "stecman/symfony-console-completion": "^0.11.0"
+        "symfony/filesystem": "^5.0",
+        "symfony/console": "^4.0|^5.0",
+        "symfony/finder": "^5.0",
+        "stecman/symfony-console-completion": "*"
     },
     "bin": [
         "conductor"

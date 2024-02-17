@@ -3,7 +3,8 @@
 $minimumPhpVersion = '7.4';
 
 //check for valet
-$use_valet = !empty(shell_exec('command -v valet'));
+//$use_valet = !empty(shell_exec('command -v valet'));
+$use_valet = false;
 
 // First, check if the system's linked "php" is 7.4+; if so, return that. This
 // is the most likely, most ideal, and fastest possible case
