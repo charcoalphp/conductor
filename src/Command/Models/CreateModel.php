@@ -66,7 +66,7 @@ EOF
         // Filter by App namespace;
         $projectDirectory = $this->getProjectDir();
         $hasAppNamespace = file_exists($projectDirectory . '/src/App/Object');
-        $namespaceToUse = 'App/Object';
+        $namespaceToUse = 'App\Object';
 
         //if (!$hasAppNamespace) {
         if (true) {
@@ -132,7 +132,7 @@ EOF
 
                     $array_key = array_search($answer, $rootNamespaces);
 
-                    if (!empty($array_key)) {
+                    if ($array_key !== false) {
                         $namespaceToUse = $rootNamespaces[$array_key];
                     }
                 }
@@ -147,6 +147,12 @@ EOF
             $kebabModelName = strtolower(preg_replace('/(?<!^)[A-Z]/', '-$0', $modelName));
             $kebabNamespace = strtolower(preg_replace('/(?<!^)([a-z])([A-Z])/', '$1-$2', $namespaceFolder));
             $snakeModelName = str_replace('-', '_', $kebabModelName);
+            $snakeNamespace = str_replace('/', '_', str_replace('-', '_', $kebabNamespace));
+
+            // Remove models/objects from snakeNamespace.
+            $snakeNamespaceParts = explode('_', $snakeNamespace);
+            array_splice($snakeNamespaceParts, 1, 1);
+            $snakeNamespace = implode('_', $snakeNamespaceParts);
 
             // Make metadata file.
             $modelMetaDirectory = $projectDirectory . '/metadata/' . strtolower($namespaceFolder);
@@ -168,6 +174,7 @@ EOF
                 $getDefaultContent = str_replace('{NAMESPACE}', $kebabNamespace, $getDefaultContent);
 
                 // Replace snakecase
+                $getDefaultContent = str_replace('{NAMESPACE_SNAKE}', $snakeNamespace, $getDefaultContent);
                 $getDefaultContent = str_replace('{OBJECT_TYPE_SNAKE}', $snakeModelName, $getDefaultContent);
 
                 $filesystem->dumpFile($metaFilePath, $getDefaultContent);

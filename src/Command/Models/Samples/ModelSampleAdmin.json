@@ -3,7 +3,7 @@
         "lists": {
             "app.default": {
                 "properties": [
-                    "title",
+                    "name",
                     "last_modified",
                     "active"
                 ],
@@ -21,7 +21,7 @@
                     }
                 ],
                 "properties_options": {
-                    "title": {
+                    "name": {
                         "display_type": "charcoal/admin/property/display/hierarchical"
                     },
                     "template_ident": {

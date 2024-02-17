@@ -1,12 +1,25 @@
 {
     "properties": {
-        "master": {
-            "obj_type": "{NAMESPACE}/{OBJECT_TYPE}"
+        "id": {
+            "type": "id",
+            "mode": "auto-increment"
+        },
+        "name": {
+            "type": "string",
+            "label": {
+                "en": "Name",
+                "fr": "Nom"
+            }
         }
+    },
+    "routable": {
+        "pattern": "{{ name }}",
+        "prefix": "{OBJECT_TYPE}/",
+        "editable": true
     },
     "sources": {
         "default": {
-            "table": "app_{OBJECT_TYPE_SNAKE}s"
+            "table": "{NAMESPACE_SNAKE}_{OBJECT_TYPE_SNAKE}s"
         }
     },
     "default_source": "default"

@@ -22,7 +22,7 @@ class ModelSample extends Content implements
     use CollectionLoaderAwareTrait;
 
     /** @var mixed */
-    protected $title;
+    protected $name;
 
     /**
      * @param  Container $container Pimple DI Container.
@@ -40,18 +40,18 @@ class ModelSample extends Content implements
     /**
      * @return mixed
      */
-    public function title()
+    public function name()
     {
-        return $this->title;
+        return $this->name;
     }
 
     /**
-     * @param mixed $title Title.
+     * @param mixed $name Name.
      * @return self
      */
-    public function setTitle($title)
+    public function setName($name)
     {
-        $this->title = $this->translator()->translation($title);
+        $this->name = $this->translator()->translation($name);
         return $this;
     }
 
