@@ -9,6 +9,7 @@ use Charcoal\App\AppConfig;
 use Charcoal\App\AppContainer;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Helper\FormatterHelper;
+use Symfony\Component\Process\Process;
 
 abstract class AbstractCommand extends Command
 {
@@ -157,5 +158,51 @@ abstract class AbstractCommand extends Command
             };
         }
         return $this->appContainer;
+    }
+
+    private function getPhpBinaryFromScript(string $script, OutputInterface $output): string
+    {
+        $phpBinary = PHP_BINARY;
+        $process = new Process($script);
+        $process->run(function ($type, $buffer) use ($output, &$success, &$phpBinary) {
+            if (Process::ERR === $type) {
+                $success = false;
+                $output->write('<error> ' . $buffer . '</error>');
+            } else {
+                if (strpos($buffer, '/php') !== false) {
+                    $phpBinary = str_replace(array("\r", "\n"), '', $buffer);
+                }
+            }
+        });
+
+        return $phpBinary;
+    }
+
+    public function getPhpBinaryForCharcoal(OutputInterface $output)
+    {
+        $phpBinary = PHP_BINARY;
+
+        if ($this->isValetSupported()) {
+            $phpBinary = $this->getPhpBinaryFromScript('cd ' . __DIR__ . '/../../;valet link;valet which-php', $output);
+        }
+
+        return $phpBinary;
+    }
+
+    public function getPhpBinaryForProject(OutputInterface $output)
+    {
+        $phpBinary = PHP_BINARY;
+
+        if ($this->isValetSupported()) {
+            $projectDirectory = $this->getProjectDir();
+            $phpBinary = $this->getPhpBinaryFromScript('cd ' . $projectDirectory . ';valet which-php', $output);
+        }
+
+        return $phpBinary;
+    }
+
+    public function isValetSupported()
+    {
+        return !empty(shell_exec(sprintf("which %s", escapeshellarg('valet'))));
     }
 }

@@ -32,30 +32,12 @@ EOF
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        /** @var QuestionHelper $questionHelper */
-        $questionHelper = $this->getHelper('question');
+        $php_exe = $this->getPhpBinaryForCharcoal($output);
+        $success = true;
 
         $directory = $input->getArgument('directory');
         if (empty($directory)) {
             $directory = './' . $input->getArgument('name');
-        }
-        $success = true;
-
-        $php_exe = PHP_BINARY;
-
-        $valet_supported = !empty(shell_exec(sprintf("which %s", escapeshellarg('valet'))));
-        if ($valet_supported) {
-            $process = new Process('cd ' . __DIR__ . '/../../../;valet link;valet which-php');
-            $process->run(function ($type, $buffer) use ($output, &$success, &$php_exe) {
-                if (Process::ERR === $type) {
-                    $success = false;
-                    $output->write('<error> ' . $buffer . '</error>');
-                } else {
-                    if (strpos($buffer, '/php') !== false) {
-                        $php_exe = str_replace(array("\r", "\n"), '', $buffer);
-                    }
-                }
-            });
         }
 
         $command = $php_exe . ' /usr/local/bin/composer create-project charcoal/boilerplate ' . $directory;
