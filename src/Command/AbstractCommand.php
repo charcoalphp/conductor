@@ -9,6 +9,8 @@ use Charcoal\App\AppConfig;
 use Charcoal\App\AppContainer;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Helper\FormatterHelper;
+use Symfony\Component\Process\Exception\RuntimeException;
+use Symfony\Component\Process\Exception\LogicException;
 use Symfony\Component\Process\Process;
 
 abstract class AbstractCommand extends Command
@@ -167,18 +169,53 @@ abstract class AbstractCommand extends Command
         return $this->appContainer;
     }
 
+    /**
+     * Run a bash command.
+     * @param string $command Command to run.
+     * @param OutputInterface $output Output.
+     * @param callable|boolean $callback Callback.
+     * @param callable|boolean $errorCallback Error Callback.
+     * @return void
+     */
+    protected function runScript(
+        string $command,
+        OutputInterface $output,
+        $callback = null,
+        $errorCallback = null
+    ) {
+        if ($callback === null || $callback === true) {
+            $callback = function ($type, $buffer) use ($output) {
+                $output->write($buffer);
+            };
+        }
+
+        if ($errorCallback === null || $errorCallback === true) {
+            $errorCallback = function ($type, $buffer) use ($output) {
+                if (Process::ERR === $type) {
+                    $output->write('<error> ' . $buffer . '</error>');
+                }
+            };
+        }
+
+        $process = new Process($command);
+        $process->run(function ($type, $buffer) use ($callback, $errorCallback) {
+            if (is_callable($errorCallback) && Process::ERR === $type) {
+                $errorCallback($type, $buffer);
+            }
+
+            if (is_callable($callback)) {
+                $callback($type, $buffer);
+            }
+        });
+    }
+
     private function getPhpBinaryFromScript(string $script, OutputInterface $output): string
     {
         $phpBinary = PHP_BINARY;
-        $process = new Process($script);
-        $process->run(function ($type, $buffer) use ($output, &$success, &$phpBinary) {
-            if (Process::ERR === $type) {
-                $success = false;
-                $output->write('<error> ' . $buffer . '</error>');
-            } else {
-                if (strpos($buffer, '/php') !== false) {
-                    $phpBinary = str_replace(array("\r", "\n"), '', $buffer);
-                }
+
+        $this->runScript($script, $output, function ($type, $buffer) use (&$phpBinary) {
+            if (strpos($buffer, '/php') !== false) {
+                $phpBinary = str_replace(array("\r", "\n"), '', $buffer);
             }
         });
 

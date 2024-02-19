@@ -8,6 +8,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Charcoal\Conductor\Command\AbstractCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Helper\QuestionHelper;
+use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Process\Process;
 
 class CreateProject extends AbstractCommand
@@ -42,14 +43,40 @@ EOF
 
         $command = $php_exe . ' /usr/local/bin/composer create-project charcoal/boilerplate ' . $directory;
         $output->writeln($command);
-        $process = new Process($command);
-        $process->run(function ($type, $buffer) use ($output, &$success) {
-            if (Process::ERR === $type) {
-                $success = false;
-            }
-            $output->write($buffer);
-        });
+        $this->runScript($command, $output, true, false);
+
+        $this->setupDatabase($input, $output);
+        $this->copyAdminAssets($input, $output);
 
         return $success ? self::$SUCCESS : self::$FAILURE;
+    }
+
+    private function setupDatabase(InputInterface $input, OutputInterface $output)
+    {
+        $questionHelper = $this->getQuestionHelper();
+
+        $question = new ConfirmationQuestion('Would you like to configure your database? (y/n) ');
+        $proceed = $questionHelper->ask($input, $output, $question);
+
+        if ($proceed) {
+            $output->writeln('Configuring your database...');
+        }
+    }
+
+    private function copyAdminAssets(InputInterface $input, OutputInterface $output)
+    {
+        $questionHelper = $this->getQuestionHelper();
+
+        $question = new ConfirmationQuestion('Would you like compile the admin assets? (y/n) ');
+        $proceed = $questionHelper->ask($input, $output, $question);
+
+        if ($proceed) {
+            $output->writeln('Compiling the admin assets...');
+        }
+    }
+
+    private function getQuestionHelper(): QuestionHelper
+    {
+        return $this->getHelper('question');
     }
 }
