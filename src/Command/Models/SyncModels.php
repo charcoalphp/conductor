@@ -47,14 +47,20 @@ EOF
 
     public function completeArgumentValues($argumentName, CompletionContext $context)
     {
+        set_error_handler(function ($errno, $errstr) {
+            return true;
+        });
+
         if (!$this->validateProject()) {
             return [];
         }
 
+        ob_start();
         $models = array_map(function ($model) {
             /** @var Model $model */
             return $model->objType();
         }, $this->getModels(new ConsoleOutput()));
+        ob_end_clean();
 
         $word    = $context->getCurrentWord();
         $suggestions = [];

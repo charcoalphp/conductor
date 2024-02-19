@@ -32,13 +32,19 @@ EOF
 
     public function completeArgumentValues($argumentName, CompletionContext $context)
     {
+        set_error_handler(function ($errno, $errstr) {
+            return true;
+        });
+
         if (!$this->validateProject()) {
             return [];
         }
 
+        ob_start();
         $scripts = array_map(function ($script) {
             return $script['ident'];
         }, $this->getProjectScripts());
+        ob_end_clean();
 
         $word    = $context->getCurrentWord();
         $suggestions = [];
