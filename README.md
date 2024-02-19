@@ -11,8 +11,6 @@ composer global require mouseeatscat/charcoal-conductor
 ```
 ### Autocompletion
 To enable autocompletion, you need to add the following to your `.bashrc` or `.zshrc` file.
-
-Replace `{PHP_EXE}` with the path of your php executable
 ```BASH
 source <(conductor _completion -g -p conductor)
 ```
