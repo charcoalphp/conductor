@@ -124,6 +124,13 @@ abstract class AbstractCommand extends Command
     public function getAppContainer(): AppContainer
     {
         if (!isset($this->appContainer)) {
+            // Mute deprecation warnings.
+            set_error_handler(function ($errno, $errstr) {
+                if ($errno == E_DEPRECATED) {
+                    return true;
+                }
+            });
+
             // Find Composer autoloader
             $autoloaderPath = $this->getProjectDir() . '/vendor/autoload.php';
 
