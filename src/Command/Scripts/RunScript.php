@@ -11,7 +11,7 @@ use Stecman\Component\Symfony\Console\BashCompletion\Completion\CompletionAwareI
 use Stecman\Component\Symfony\Console\BashCompletion\CompletionContext;
 use Slim\Http\Environment as SlimEnvironment;
 
-class RunScript extends AbstractCommand implements CompletionAwareInterface
+class RunScript extends AbstractScriptCommand implements CompletionAwareInterface
 {
     use ModelAwareTrait;
 

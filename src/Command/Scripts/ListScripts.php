@@ -9,7 +9,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Charcoal\Conductor\Command\AbstractCommand;
 use Symfony\Component\Console\Helper\Table;
 
-class ListScripts extends AbstractCommand
+class ListScripts extends AbstractScriptCommand
 {
     use ModelAwareTrait;
 
