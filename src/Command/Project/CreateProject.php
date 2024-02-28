@@ -4,7 +4,6 @@ namespace Charcoal\Conductor\Command\Project;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Charcoal\Conductor\Command\AbstractCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Question\Question;
@@ -12,7 +11,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Slim\Http\Environment as SlimEnvironment;
 use Exception;
 
-class CreateProject extends AbstractCommand
+class CreateProject extends AbstractProjectCommand
 {
     /**
      * @return void
