@@ -16,9 +16,6 @@ final class Conductor
     {
         $this->registerCommands();
 
-        // TEMPORARY
-        //$this->getConsole()->setDefaultCommand('models-list');
-
         $this->getConsole()->run();
 
         if (!$this->validateProject()) {
