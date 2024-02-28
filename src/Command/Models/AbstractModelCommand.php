@@ -1,13 +1,14 @@
 <?php
 
-namespace Charcoal\Conductor\Traits;
+namespace Charcoal\Conductor\Command\Models;
 
-use Generator;
+use Charcoal\Conductor\Command\AbstractCommand;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Finder\SplFileInfo;
+use Throwable;
 
-trait ModelAwareTrait
+abstract class AbstractModelCommand extends AbstractCommand
 {
     public function loadModels($modelFactory, OutputInterface $output): array
     {
@@ -40,7 +41,7 @@ trait ModelAwareTrait
             try {
                 $newModel = $modelFactory->create($class_name);
                 $models[] = $newModel;
-            } catch (\Throwable $e) {
+            } catch (Throwable $e) {
                 if ($output->isDebug()) {
                     $output->writeln("Failed to create class '$class_name': " . $e->getMessage());
                 }

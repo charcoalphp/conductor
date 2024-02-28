@@ -2,12 +2,10 @@
 
 namespace Charcoal\Conductor\Command\Project;
 
-use Charcoal\Conductor\Traits\ModelAwareTrait;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Charcoal\Conductor\Command\AbstractCommand;
 use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Filesystem\Filesystem;
@@ -16,8 +14,6 @@ use Exception;
 
 class CreateProject extends AbstractCommand
 {
-    use ModelAwareTrait;
-
     /**
      * @return void
      */

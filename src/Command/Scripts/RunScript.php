@@ -2,19 +2,15 @@
 
 namespace Charcoal\Conductor\Command\Scripts;
 
-use Charcoal\Conductor\Traits\ModelAwareTrait;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Charcoal\Conductor\Command\AbstractCommand;
 use Stecman\Component\Symfony\Console\BashCompletion\Completion\CompletionAwareInterface;
 use Stecman\Component\Symfony\Console\BashCompletion\CompletionContext;
 use Slim\Http\Environment as SlimEnvironment;
 
 class RunScript extends AbstractScriptCommand implements CompletionAwareInterface
 {
-    use ModelAwareTrait;
-
     /**
      * @return void
      */

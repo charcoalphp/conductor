@@ -2,17 +2,12 @@
 
 namespace Charcoal\Conductor\Command\Scripts;
 
-use Charcoal\Conductor\Traits\ModelAwareTrait;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Charcoal\Conductor\Command\AbstractCommand;
 use Symfony\Component\Console\Helper\Table;
 
 class ListScripts extends AbstractScriptCommand
 {
-    use ModelAwareTrait;
-
     /**
      * @return void
      */

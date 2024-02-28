@@ -4,26 +4,21 @@ namespace Charcoal\Conductor\Command\Models;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Charcoal\Conductor\Traits\ModelAwareTrait;
 use Charcoal\Conductor\Traits\TimerTrait;
 use Charcoal\Model\ModelInterface;
-use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Input\InputArgument;
 use Charcoal\Source\DatabaseSource;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Helper\Table;
-use Charcoal\Conductor\Command\AbstractCommand;
 use Charcoal\Model\Model;
 use Charcoal\Property\AbstractProperty;
 use Stecman\Component\Symfony\Console\BashCompletion\Completion\CompletionAwareInterface;
 use Stecman\Component\Symfony\Console\BashCompletion\CompletionContext;
 use Symfony\Component\Console\Output\ConsoleOutput;
-use Symfony\Component\Console\Command\Command;
 
-class SyncModels extends AbstractCommand implements CompletionAwareInterface
+class SyncModels extends AbstractModelCommand implements CompletionAwareInterface
 {
     use TimerTrait;
-    use ModelAwareTrait;
 
     private $model_classes;
     private $isDryRun = false;

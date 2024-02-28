@@ -2,10 +2,8 @@
 
 namespace Charcoal\Conductor\Command\Models;
 
-use Charcoal\Conductor\Traits\ModelAwareTrait;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Charcoal\Conductor\Command\AbstractCommand;
 use Charcoal\Model\Model;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Question\Question;
@@ -14,10 +12,8 @@ use Symfony\Component\Finder\Finder;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 
-class CreateModel extends AbstractCommand
+class CreateModel extends AbstractModelCommand
 {
-    use ModelAwareTrait;
-
     /**
      * @return void
      */

@@ -2,15 +2,11 @@
 
 namespace Charcoal\Conductor\Command\Models;
 
-use Charcoal\Conductor\Traits\ModelAwareTrait;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Charcoal\Conductor\Command\AbstractCommand;
 
-class ListModels extends AbstractCommand
+class ListModels extends AbstractModelCommand
 {
-    use ModelAwareTrait;
-
     /**
      * @return void
      */
