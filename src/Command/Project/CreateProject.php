@@ -6,13 +6,13 @@ use Charcoal\Conductor\Traits\ModelAwareTrait;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Charcoal\Conductor\Command\AbstractCommand;
-use Exception;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Console\Question\Question;
-use Symfony\Component\Process\Process;
 use Symfony\Component\Filesystem\Filesystem;
+use Slim\Http\Environment as SlimEnvironment;
+use Exception;
 
 class CreateProject extends AbstractCommand
 {
@@ -123,7 +123,11 @@ EOF
                 $prettyJson = json_encode($configSample, JSON_PRETTY_PRINT);
                 $filesystem->dumpFile($configDirectory . '/config.local.json', $prettyJson);
             }
+
+            return true;
         }
+
+        return false;
     }
 
     private function copyAdminAssets(InputInterface $input, OutputInterface $output)
@@ -135,6 +139,20 @@ EOF
 
         if ($proceed) {
             $output->writeln('Compiling the admin assets...');
+
+            $container = $this->getAppContainer(true);
+            $scriptInput = 'admin/tools/copy-assets';
+
+            // Create a fake HTTP environment from the first CLI argument
+            $container['environment'] = function ($container) use ($scriptInput) {
+                $path = '/' . ltrim($scriptInput, '/');
+                return SlimEnvironment::mock([
+                    'PATH_INFO'   => $path,
+                    'REQUEST_URI' => $path,
+                ]);
+            };
+
+            $this->getProjectApp(true);
         }
     }
 
