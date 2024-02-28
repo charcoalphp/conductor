@@ -2,15 +2,14 @@
 
 namespace Charcoal\Conductor\Command;
 
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Filesystem\Filesystem;
 use Charcoal\App\App;
 use Charcoal\App\AppConfig;
 use Charcoal\App\AppContainer;
-use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\FormatterHelper;
-use Symfony\Component\Process\Exception\RuntimeException;
-use Symfony\Component\Process\Exception\LogicException;
+use Symfony\Component\Console\Helper\QuestionHelper;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Process\Process;
 
 abstract class AbstractCommand extends Command
@@ -248,5 +247,10 @@ abstract class AbstractCommand extends Command
     public function isValetSupported()
     {
         return !empty(shell_exec(sprintf("which %s", escapeshellarg('valet'))));
+    }
+
+    protected function getQuestionHelper(): QuestionHelper
+    {
+        return $this->getHelper('question');
     }
 }

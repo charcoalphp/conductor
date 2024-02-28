@@ -12,6 +12,11 @@
             }
         }
     },
+    "routable": {
+        "pattern": "{{ name }}",
+        "prefix": "{OBJECT_TYPE}/",
+        "editable": true
+    },
     "sources": {
         "default": {
             "table": "{NAMESPACE_SNAKE}_{OBJECT_TYPE_SNAKE}s"

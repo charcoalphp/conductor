@@ -176,9 +176,4 @@ EOF
             $this->runScript($command, $output, true, false);
         }
     }
-
-    private function getQuestionHelper(): QuestionHelper
-    {
-        return $this->getHelper('question');
-    }
 }

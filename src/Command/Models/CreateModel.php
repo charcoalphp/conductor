@@ -12,6 +12,7 @@ use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Console\Question\ChoiceQuestion;
+use Symfony\Component\Console\Question\ConfirmationQuestion;
 
 class CreateModel extends AbstractCommand
 {
@@ -144,6 +145,10 @@ EOF
         $namespaceFolder = str_replace('\\', '/', $namespaceToUse);
 
         try {
+            $questionHelper = $this->getQuestionHelper();
+            $question = new ConfirmationQuestion('Would you like the model to be routable? (Y/n) ');
+            $routable = $questionHelper->ask($input, $output, $question);
+
             $kebabModelName = strtolower(preg_replace('/(?<!^)[A-Z]/', '-$0', $modelName));
             $kebabNamespace = strtolower(preg_replace('/(?<!^)([a-z])([A-Z])/', '$1-$2', $namespaceFolder));
             $snakeModelName = str_replace('-', '_', $kebabModelName);
@@ -165,7 +170,8 @@ EOF
             if (!$filesystem->exists($metaFilePath)) {
                 $output->writeln('Generating model meta: ' . $metaFilePath);
 
-                $getDefaultContent = file_get_contents(__DIR__ . '/Samples/ModelSample.json');
+                $modelSampleFile = $routable ? 'ModelSampleRoutable' : 'ModelSample';
+                $getDefaultContent = file_get_contents(__DIR__ . sprintf('/Samples/%s.json', $modelSampleFile));
 
                 // Replace object type
                 $getDefaultContent = str_replace('{OBJECT_TYPE}', $kebabModelName, $getDefaultContent);
@@ -213,7 +219,9 @@ EOF
             if (!$filesystem->exists($modelFilePath)) {
                 $output->writeln('Generating model class: ' . $modelFilePath);
 
-                $getDefaultContent = file_get_contents(__DIR__ . '/Samples/ModelSample.php');
+                $modelSampleFile = $routable ? 'ModelSampleRoutable' : 'ModelSample';
+                $getDefaultContent = file_get_contents(__DIR__ . sprintf('/Samples/%s.php', $modelSampleFile));
+
                 // Replace class name.
                 $getDefaultContent = str_replace('ModelSample', $modelName, $getDefaultContent);
                 // Replace namespace.
