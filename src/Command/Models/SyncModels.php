@@ -264,6 +264,7 @@ EOF
             if (!array_key_exists($ident, $tableStructure)) {
                 $fieldSql = $field->sql();
                 if ($fieldSql) {
+                    $alterations++;
                     $table->addRow([$ident, '--', '--', 'CREATE']);
                 }
             } else {
