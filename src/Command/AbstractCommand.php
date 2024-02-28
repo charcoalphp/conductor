@@ -70,8 +70,7 @@ abstract class AbstractCommand extends Command
 
         foreach ($admin_scripts as &$script) {
             $ident = $script['ident'];
-            $script['ident'] = str_replace('charcoal/', '', $ident);
-            $script['ident'] = str_replace('/script', '', $ident);
+            $script['ident'] = preg_replace('/charcoal\/(\w*)\/script/', '$1', $ident);
         }
 
         $all_scripts = array_values(array_merge($scripts, $admin_scripts));
@@ -85,9 +84,9 @@ abstract class AbstractCommand extends Command
      * Get Project App.
      * @return App
      */
-    public function getProjectApp()
+    public function getProjectApp(bool $new = false)
     {
-        if (!isset($this->projectApp)) {
+        if ($new || !isset($this->projectApp)) {
             $container = $this->getAppContainer();
             $this->projectApp = App::instance($container);
             $this->projectApp->run();
@@ -96,9 +95,9 @@ abstract class AbstractCommand extends Command
         return $this->projectApp;
     }
 
-    public function getAppConfig()
+    public function getAppConfig(bool $new = false)
     {
-        if (!isset($this->appConfig)) {
+        if ($new || !isset($this->appConfig)) {
             $baseDir = $this->getProjectDir();
             $confFile = $baseDir . '/config/config.php';
             $config = new AppConfig([
@@ -119,11 +118,12 @@ abstract class AbstractCommand extends Command
 
     /**
      * Get Project App.
+     * @param boolean $new Create a new app container.
      * @return AppContainer
      */
-    public function getAppContainer(): AppContainer
+    public function getAppContainer(bool $new = false): AppContainer
     {
-        if (!isset($this->appContainer)) {
+        if ($new || !isset($this->appContainer)) {
             // Mute deprecation warnings.
             set_error_handler(function ($errno, $errstr) {
                 if ($errno == E_DEPRECATED) {
@@ -142,7 +142,7 @@ abstract class AbstractCommand extends Command
 
             // Create container and configure it (with charcoal-config)
             $this->appContainer = new AppContainer([
-                'config' => $this->getAppConfig(),
+                'config' => $this->getAppConfig($new),
             ]);
 
             // Convert HTTP 404 Not Found to CLI-friendly error
