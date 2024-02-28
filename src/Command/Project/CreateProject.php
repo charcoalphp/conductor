@@ -49,8 +49,16 @@ EOF
         $this->runScript($command, $output, true, false);
 
         try {
-            $this->setupDatabase($input, $output);
-            $this->copyAdminAssets($input, $output);
+            // Setup Database
+            $isDatabaseSetup = $this->setupDatabase($input, $output);
+
+            // Copy admin assets
+            if ($isDatabaseSetup) {
+                $this->copyAdminAssets($input, $output);
+            }
+
+            // Init git repo
+            $this->initGitRepo($input, $output);
         } catch (\Throwable $th) {
             $this->writeError($th->getMessage(), $output);
             $success = false;
@@ -153,6 +161,19 @@ EOF
             };
 
             $this->getProjectApp(true);
+        }
+    }
+
+    private function initGitRepo(InputInterface $input, OutputInterface $output)
+    {
+        $questionHelper = $this->getQuestionHelper();
+
+        $question = new ConfirmationQuestion('Would you like to initialize the git repo? (Y/n) ');
+        $proceed = $questionHelper->ask($input, $output, $question);
+
+        if ($proceed) {
+            $command = 'cd ' . $this->getProjectDir() . ';git init;git add .;git commit -m "Initial Commit"';
+            $this->runScript($command, $output, true, false);
         }
     }
 
