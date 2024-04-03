@@ -7,7 +7,7 @@ A CLI tool for interacting with the [Charcoal framework](https://github.com/char
 ## Installation
 ```BASH
 composer global config repositories.stecman/symfony-console-completion vcs https://github.com/charcoalphp/symfony-console-completion
-composer global require charcoalphp/charcoal-conductor
+composer global require charcoal/conductor
 ```
 ### Autocompletion
 To enable autocompletion, you need to add the following to your `.bashrc` or `.zshrc` file.
