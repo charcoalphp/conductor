@@ -1,7 +1,6 @@
 {
     "name": "charcoal/conductor",
     "description": "A CLI tool for interacting with your Charcoal projects.",
-    "version": "1.0.0",
     "license": "Apache-2.0",
     "autoload": {
         "psr-4": {

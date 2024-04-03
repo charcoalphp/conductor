@@ -6,7 +6,7 @@ A CLI tool for interacting with the [Charcoal framework](https://github.com/char
 - composer
 ## Installation
 ```BASH
-composer global config repositories.stecman/symfony-console-completion vcs https://github.com/charcoalphp/symfony-console-completion
+composer global config repositories.stecman/symfony-console-completion vcs https://github.com/MouseEatsCat/symfony-console-completion
 composer global require charcoal/conductor
 ```
 ### Autocompletion
