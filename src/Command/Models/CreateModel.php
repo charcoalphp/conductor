@@ -38,7 +38,6 @@ EOF
         /** @var QuestionHelper $questionHelper */
         $questionHelper = $this->getHelper('question');
         $filesystem = new Filesystem();
-        $finder = new Finder();
 
         $modelName = $questionHelper->ask(
             $input,
@@ -61,11 +60,8 @@ EOF
         );
 
         // Filter by App namespace;
-        $projectDirectory = $this->getProjectDir();
-        $hasAppNamespace = file_exists($projectDirectory . '/src/App/Object');
         $namespaceToUse = 'App\Object';
 
-        //if (!$hasAppNamespace) {
         if (true) {
             // Try to find the app's custom namespace
             $rootNamespaces = [];
@@ -93,7 +89,6 @@ EOF
 
             foreach ($models as $model) {
                 $namespace = get_class($model);
-                //if (preg_match('/(.*?\\\.*?)\\\.*$/', $namespace, $matches)) {
                 if (preg_match('/^(([a-zA-Z]+?\\\[a-zA-Z]+).*)\\\.*$/', $namespace, $matches)) {
                     if (!empty($matches[2])) {
                         $rootNamespace = $matches[2];
@@ -145,18 +140,10 @@ EOF
             $question = new ConfirmationQuestion('Would you like the model to be routable? (Y/n) ');
             $routable = $questionHelper->ask($input, $output, $question);
 
-            $kebabModelName = strtolower(preg_replace('/(?<!^)[A-Z]/', '-$0', $modelName));
-            $kebabNamespace = strtolower(preg_replace('/(?<!^)([a-z])([A-Z])/', '$1-$2', $namespaceFolder));
-            $snakeModelName = str_replace('-', '_', $kebabModelName);
-            $snakeNamespace = str_replace('/', '_', str_replace('-', '_', $kebabNamespace));
-
-            // Remove models/objects from snakeNamespace.
-            $snakeNamespaceParts = explode('_', $snakeNamespace);
-            array_splice($snakeNamespaceParts, 1, 1);
-            $snakeNamespace = implode('_', $snakeNamespaceParts);
+            $kebabModelName = $this->kebabcaseModelName($modelName);
 
             // Make metadata file.
-            $modelMetaDirectory = $projectDirectory . '/metadata/' . strtolower($namespaceFolder);
+            $modelMetaDirectory = $this->getProjectDir() . '/metadata/' . strtolower($namespaceFolder);
 
             if (!$filesystem->exists($modelMetaDirectory)) {
                 $filesystem->mkdir($modelMetaDirectory);
@@ -169,21 +156,15 @@ EOF
                 $modelSampleFile = $routable ? 'ModelSampleRoutable' : 'ModelSample';
                 $getDefaultContent = file_get_contents(__DIR__ . sprintf('/Samples/%s.json', $modelSampleFile));
 
-                // Replace object type
-                $getDefaultContent = str_replace('{OBJECT_TYPE}', $kebabModelName, $getDefaultContent);
-
-                // Replace namespace
-                $getDefaultContent = str_replace('{NAMESPACE}', $kebabNamespace, $getDefaultContent);
-
-                // Replace snakecase
-                $getDefaultContent = str_replace('{NAMESPACE_SNAKE}', $snakeNamespace, $getDefaultContent);
-                $getDefaultContent = str_replace('{OBJECT_TYPE_SNAKE}', $snakeModelName, $getDefaultContent);
-
-                $filesystem->dumpFile($metaFilePath, $getDefaultContent);
+                $filesystem->dumpFile($metaFilePath, $this->placeholdersModelMeta(
+                    $getDefaultContent,
+                    $modelName,
+                    $namespaceFolder
+                ));
             }
 
             // Make metadata admin file.
-            $modelMetaDirectory = $projectDirectory . '/metadata/admin/' . strtolower($namespaceFolder);
+            $modelMetaDirectory = $this->getProjectDir() . '/metadata/admin/' . strtolower($namespaceFolder);
 
             if (!$filesystem->exists($modelMetaDirectory)) {
                 $filesystem->mkdir($modelMetaDirectory);
@@ -195,17 +176,15 @@ EOF
 
                 $getDefaultContent = file_get_contents(__DIR__ . '/Samples/ModelSampleAdmin.json');
 
-                // Replace namespace
-                $getDefaultContent = str_replace('{NAMESPACE}', $kebabNamespace, $getDefaultContent);
-
-                // Replace object type
-                $getDefaultContent = str_replace('{OBJECT_TYPE}', $kebabModelName, $getDefaultContent);
-
-                $filesystem->dumpFile($metaFilePath, $getDefaultContent);
+                $filesystem->dumpFile($metaFilePath, $this->placeholdersModelAdminMeta(
+                    $getDefaultContent,
+                    $modelName,
+                    $namespaceFolder
+                ));
             }
 
             // Make PHP file.
-            $modelDirectory = $projectDirectory . '/src/' . $namespaceFolder;
+            $modelDirectory = $this->getProjectDir() . '/src/' . $namespaceFolder;
 
             if (!$filesystem->exists($modelDirectory)) {
                 $filesystem->mkdir($modelDirectory);
@@ -218,14 +197,13 @@ EOF
                 $modelSampleFile = $routable ? 'ModelSampleRoutable' : 'ModelSample';
                 $getDefaultContent = file_get_contents(__DIR__ . sprintf('/Samples/%s.php', $modelSampleFile));
 
-                // Replace class name.
-                $getDefaultContent = str_replace('ModelSample', $modelName, $getDefaultContent);
-                // Replace namespace.
-                $getDefaultContent = str_replace('App\Object', $namespaceToUse, $getDefaultContent);
-                $filesystem->dumpFile($modelFilePath, $getDefaultContent);
+                $filesystem->dumpFile($modelFilePath, $this->placeholdersModel(
+                    $getDefaultContent,
+                    $modelName,
+                    $namespaceToUse
+                ));
             }
         } catch (\Throwable $th) {
-            //throw $th;
             $this->writeError($th->getMessage(), $output);
             return self::$FAILURE;
         }
@@ -236,5 +214,42 @@ EOF
         ));
 
         return self::$SUCCESS;
+    }
+
+    private function placeholdersModelMeta(string $content, string $modelName, string $namespace)
+    {
+        // Replace object type
+        $content = str_replace('{OBJECT_TYPE}', $this->kebabcaseModelName($modelName), $content);
+
+        // Replace namespace
+        $content = str_replace('{NAMESPACE}', $this->kebabcaseNamespace($namespace), $content);
+
+        // Replace snakecase
+        $content = str_replace('{NAMESPACE_SNAKE}', $this->snakecaseNamespace($namespace), $content);
+        $content = str_replace('{OBJECT_TYPE_SNAKE}', $this->snakecaseModelName($modelName), $content);
+
+        return $content;
+    }
+
+    private function placeholdersModelAdminMeta($content, string $modelName, string $namespace)
+    {
+        // Replace namespace
+        $content = str_replace('{NAMESPACE}', $this->kebabcaseNamespace($namespace), $content);
+
+        // Replace object type
+        $content = str_replace('{OBJECT_TYPE}', $this->kebabcaseModelName($modelName), $content);
+
+        return $content;
+    }
+
+    private function placeholdersModel(string $content, string $modelName, string $namespace)
+    {
+        // Replace class name.
+        $content = str_replace('ModelSample', $modelName, $content);
+
+        // Replace namespace.
+        $content = str_replace('App\Object', $namespace, $content);
+
+        return $content;
     }
 }
