@@ -10,7 +10,7 @@ use Throwable;
 
 abstract class AbstractModelCommand extends AbstractCommand
 {
-    public function loadModels($modelFactory, OutputInterface $output): array
+    public function loadObjects($modelFactory, OutputInterface $output, callable $filterFunction = null)
     {
         $finder = new Finder();
         $finder->files()->in($this->getProjectDir() . '/src/')->name('*.php');
@@ -23,9 +23,8 @@ abstract class AbstractModelCommand extends AbstractCommand
             if (
                 !(
                     (
-                        str_contains($namespace, 'Object') ||
-                        str_contains($namespace, 'Model') ||
-                        str_contains($namespace, 'Attachment')
+                        (is_callable($filterFunction) && $filterFunction($namespace)) ||
+                        !is_callable($filterFunction)
                     ) &&
                     !str_contains($namespace, 'Transformer') &&
                     !str_contains($namespace, 'Shared') &&
@@ -44,7 +43,7 @@ abstract class AbstractModelCommand extends AbstractCommand
                 $models[] = $newModel;
             } catch (Throwable $e) {
                 if ($output->isDebug()) {
-                    $output->writeln("Failed to create class '$class_name': " . $e->getMessage());
+                    $output->writeln("ModelFactory failed to create model using class '$class_name': " . $e->getMessage());
                 }
                 continue;
             }
@@ -53,48 +52,23 @@ abstract class AbstractModelCommand extends AbstractCommand
         return $models;
     }
 
-    private function loadObjects()
+    public function loadModels($modelFactory, OutputInterface $output): array
     {
-        
+        return $this->loadObjects($modelFactory, $output, function ($namespace) {
+            return (
+                str_contains($namespace, 'Object') ||
+                str_contains($namespace, 'Model')
+            );
+        });
     }
 
     public function loadAttachments($modelFactory, OutputInterface $output): array
     {
-        $finder = new Finder();
-        $finder->files()->in($this->getProjectDir() . '/src/')->name('*.php');
-        $models = [];
-
-        foreach ($finder as $file) {
-            /** @var SplFileInfo $file */
-            $namespace = str_replace('/', '\\', '/' . $file->getRelativePath());
-
-            if (
-                !(
-                    str_contains($namespace, 'Attachment') &&
-                    !str_contains($namespace, 'Transformer') &&
-                    !str_contains($namespace, 'Shared') &&
-                    !str_contains($file->getFilename(), 'Abstract') &&
-                    !str_contains($file->getFilename(), 'Interface') &&
-                    !str_contains($file->getFilename(), 'Trait')
-                )
-            ) {
-                continue;
-            }
-
-            $class_name = rtrim($namespace, '\\') . '\\' . $file->getFilenameWithoutExtension();
-
-            try {
-                $newModel = $modelFactory->create($class_name);
-                $models[] = $newModel;
-            } catch (Throwable $e) {
-                if ($output->isDebug()) {
-                    $output->writeln("Failed to create class '$class_name': " . $e->getMessage());
-                }
-                continue;
-            }
-        }
-
-        return $models;
+        return $this->loadObjects($modelFactory, $output, function ($namespace) {
+            return (
+                str_contains($namespace, 'Attachment')
+            );
+        });
     }
 
     public function kebabcaseModelName(string $modelName): string
