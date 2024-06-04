@@ -37,6 +37,7 @@ final class Conductor
             new Command\Models\ListAttachments(),
             new Command\Models\ListModels(),
             new Command\Models\SyncModels(),
+            new Command\Models\SyncAttachments(),
             // Scripts
             new Command\Scripts\ListScripts(),
             new Command\Scripts\RunScript(),
