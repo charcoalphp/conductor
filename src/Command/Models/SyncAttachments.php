@@ -130,6 +130,7 @@ EOF
 
         $createCount = 0;
         $updateCount = 0;
+        $attachmentsToUpdate = [];
         $fieldCache = [];
 
         foreach ($attachments as $attachment) {
@@ -139,9 +140,12 @@ EOF
                     $createCount++;
                 } elseif ($do_update) {
                     // Check for conflicts with existing fields
-                    $this->updateTable($attachment, $output, $fieldCache);
+                    $updateAttachment = $this->updateTable($attachment, $output, $fieldCache);
+                    $attachmentsToUpdate[$attachment::objType()] = $updateAttachment;
 
-                    $updateCount++;
+                    if ($updateAttachment) {
+                        $updateCount++;
+                    }
                 }
             } catch (\Throwable $th) {
                 $this->writeError($th->getMessage(), $output);
@@ -171,54 +175,54 @@ EOF
                 $output->writeln('');
                 $output->writeln(sprintf('Property <fg=yellow;options=bold>%s</>:', $key));
                 foreach ($value['type'] as $type => $attachments) {
-                    $output->writeln(sprintf('- These attachments define the type as: <fg=yellow;options=bold>%s</>', $type));
+                    $output->writeln(sprintf('These attachments define the type as: <fg=yellow;options=bold>%s</>', $type));
                     foreach ($attachments as $attachment) {
-                        $output->writeln(sprintf('-- %s', $attachment));
+                        $output->writeln(sprintf('- %s', $attachment));
                     }
                 }
             }
+
+            return self::$FAILURE;
         } else {
             // Do actual update here.
-            if (!$this->isDryRun) {
-                foreach ($attachments as $attachment) {
-                    $this->timer()->start();
+            foreach ($attachments as $attachment) {
+                $this->timer()->start();
+
+                $needToUdpate = $attachmentsToUpdate[$attachment::objType()] ?? false;
+                $class_name = get_class($attachment);
+
+                if (empty($needToUdpate)) {
+                    $output->writeln(sprintf(
+                        'Skipping <fg=yellow;options=bold>%s</>: already up-to-date',
+                        $class_name
+                    ));
+                    $this->timer()->stop();
+                    continue;
+                }
+
+                $output->writeln(sprintf('<fg=blue>Updating attachments table</> for <fg=yellow;options=bold>%s</>', $class_name));
+                if ($needToUdpate instanceof Table) {
+                    $needToUdpate->render();
+                }
+
+                if (!$this->isDryRun) {
                     /** @var DatabaseSource $source */
                     $source = $attachment->source();
                     $source->alterTable();
-
                     $output->writeln(sprintf(
-                        '<fg=green>Updated %s - %ss</>',
+                        '<fg=green>Updated table: %s for <fg=yellow;options=bold>%s</> - %ss</>',
                         $source->table(),
+                        get_class($attachment),
                         $this->timer()->stop()
                     ));
                 }
             }
-        }
 
-        $output->writeln('<info>All Done!</info>');
+            $output->writeln('<info>All Done!</info>');
 
-        $messages = [];
-
-        if ($createCount) {
-            $messages[] = sprintf(
-                'created %s %s',
-                $createCount,
-                $createCount == 1 ? 'table' : 'tables'
-            );
-        }
-
-        if ($updateCount) {
-            $messages[] = sprintf(
-                'updated %s %s',
-                $updateCount,
-                $updateCount == 1 ? 'table' : 'tables'
-            );
-        }
-
-        $message = ucfirst(implode(' and ', $messages));
-
-        if (!empty($message)) {
+            $message = $createCount ? 'Created attachments table' : 'Updated attachments table';
             $output->writeln(sprintf('<info>%s</info>', $message));
+            return self::$SUCCESS;
         }
 
         return self::$SUCCESS;
@@ -236,8 +240,7 @@ EOF
 
             $output->writeln(sprintf(
                 '<fg=green>Created table: %s - %ss</>',
-                $source->table(),
-                $this->timer()->stop()
+                $source->table()
             ));
         }
     }
@@ -246,13 +249,6 @@ EOF
     {
         $class_name = get_class($attachment);
         $changes = $this->getChanges($attachment, $output);
-
-        if (!empty($changes['alterations'])) {
-            $output->writeln(sprintf('<fg=blue>Updating attachments table</> for <fg=yellow;options=bold>%s</>', $class_name));
-            $changes['table']->render();
-        } else {
-            $output->writeln(sprintf('Skipping <fg=yellow;options=bold>%s</>: already up-to-date', $class_name));
-        }
 
         if (!empty($changes['properties'])) {
             // Check for conflicts
@@ -266,6 +262,8 @@ EOF
                 }
             }
         }
+
+        return !empty($changes['alterations']) ? $changes['table'] : false;
     }
 
     private function getChanges(ModelInterface $attachment, OutputInterface $output): ?array
