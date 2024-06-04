@@ -27,5 +27,5 @@ source <(conductor _completion -g -p conductor)
 | attachments:sync   | Synchronize the attachments table with attachment definitions |
 | scripts:list       | List all charcoal scripts                                     |
 | scripts:run        | Run a charcoal script                                         |
+| template:create    | Create a new Template                                         |
 | project:create     | Create a new charcoal project                                 |
-| template:create | Create a new Template                           |

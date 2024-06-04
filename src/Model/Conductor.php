@@ -36,13 +36,14 @@ final class Conductor
             new Command\Models\CreateAttachment(),
             new Command\Models\CreateModel(),
             new Command\Models\ListAttachments(),
-            new Command\Models\CreateTemplate(),
             new Command\Models\ListModels(),
             new Command\Models\SyncModels(),
             new Command\Models\SyncAttachments(),
             // Scripts
             new Command\Scripts\ListScripts(),
             new Command\Scripts\RunScript(),
+            // Template
+            new Command\Models\CreateTemplate(),
             // Project
             new Command\Project\CreateProject(),
         ]);
