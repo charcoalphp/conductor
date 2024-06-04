@@ -6,17 +6,16 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Charcoal\Conductor\Traits\TimerTrait;
 use Charcoal\Model\ModelInterface;
-use Symfony\Component\Console\Input\InputArgument;
 use Charcoal\Source\DatabaseSource;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Helper\Table;
-use Charcoal\Model\Model;
 use Charcoal\Property\AbstractProperty;
 use Stecman\Component\Symfony\Console\BashCompletion\Completion\CompletionAwareInterface;
 use Stecman\Component\Symfony\Console\BashCompletion\CompletionContext;
 use Symfony\Component\Console\Output\ConsoleOutput;
+use Charcoal\Attachment\Object\Attachment;
 
-class SyncModels extends AbstractModelCommand implements CompletionAwareInterface
+class SyncAttachments extends AbstractModelCommand implements CompletionAwareInterface
 {
     use TimerTrait;
 
@@ -28,13 +27,12 @@ class SyncModels extends AbstractModelCommand implements CompletionAwareInterfac
     protected function configure()
     {
         $this
-            ->setName('models:sync')
-            ->setDescription('Synchronize the database with model definitions.')
-            ->addArgument('model', InputArgument::OPTIONAL, 'Model to sync')
+            ->setName('attachments:sync')
+            ->setDescription('Synchronize the database with attachment model definitions.')
             ->addOption('create-only', null, InputOption::VALUE_NONE, 'Create only')
             ->addOption('dry', null, InputOption::VALUE_NONE, 'Dry-run')
             ->setHelp(<<<'EOF'
-The <info>%command.name%</info> command synchronizes your database with the registered models/objects within your Charcoal project
+The <info>%command.name%</info> command synchronizes your attachments table structure with attachments defined within your Charcoal project
 EOF
             );
     }
@@ -50,22 +48,22 @@ EOF
         }
 
         ob_start();
-        $models = array_map(function ($model) {
-            /** @var Model $model */
-            return $model->objType();
-        }, $this->getModels(new ConsoleOutput()));
+        $attachments = array_map(function ($attachment) {
+            /** @var Attachment $attachment */
+            return $attachment->objType();
+        }, $this->getAttachments(new ConsoleOutput()));
         ob_end_clean();
 
         $word    = $context->getCurrentWord();
         $suggestions = [];
 
         if (empty($word)) {
-            return $models;
+            return $attachments;
         }
 
-        foreach ($models as $model) {
-            if (strpos($model, $word) !== false) {
-                $suggestions[] = $model;
+        foreach ($attachments as $attachment) {
+            if (strpos($attachment, $word) !== false) {
+                $suggestions[] = $attachment;
             }
         }
 
@@ -77,7 +75,7 @@ EOF
         return [];
     }
 
-    private function getModels(OutputInterface $output)
+    private function getAttachments(OutputInterface $output)
     {
         ob_start();
         $modelFactory = $this->getProjectApp()->getContainer()->get('model/factory');
@@ -87,12 +85,12 @@ EOF
             return [];
         }
 
-        $models = $this->loadModels($modelFactory, $output);
-        $models = array_filter($models, function ($model) {
-            return !empty($model->metadata()->get('sources'));
+        $attachments = $this->loadAttachments($modelFactory, $output);
+        $attachments = array_filter($attachments, function ($attachment) {
+            return !empty($attachment->metadata()->get('sources'));
         });
 
-        return $models;
+        return $attachments;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -111,22 +109,10 @@ EOF
             return self::$FAILURE;
         }
 
-        $models = $this->getModels($output);
-        if (empty($models)) {
-            $this->writeError('No models were found in the current directory.', $output);
+        $attachments = $this->getAttachments($output);
+        if (empty($attachments)) {
+            $this->writeError('No attachments were found in the current directory.', $output);
             return self::$FAILURE;
-        }
-
-        $modelArgument = $input->getArgument('model');
-        if (!empty($modelArgument)) {
-            $models = array_filter($models, function ($model) use ($modelArgument) {
-                return $model->objType() == $modelArgument;
-            });
-
-            if (empty($models)) {
-                $this->writeError('No models match your criteria.', $output);
-                return self::$INVALID;
-            }
         }
 
         $this->isDryRun = $input->getOption('dry');
@@ -134,39 +120,78 @@ EOF
             $output->writeln('<fg=yellow;bg=red;options=bold> - DRY RUN - </>');
         }
 
-
         $do_create = true;
         $do_update = ($input->getOption('create-only') ?? false) == false;
 
-        $modelsCount = count($models);
         $output->writeln(sprintf(
-            '%s %d Model%s',
-            ($do_create && $do_update) ? 'Creating/Updating' : ($do_create ? 'Creating' : 'Updating'),
-            $modelsCount,
-            $modelsCount === 1 ? '' : 's'
+            '%s Attachments table',
+            ($do_create && $do_update) ? 'Creating/Updating' : ($do_create ? 'Creating' : 'Updating')
         ));
 
         $createCount = 0;
         $updateCount = 0;
+        $fieldCache = [];
 
-        foreach ($models as $model) {
-            $this->timer()->start();
-
+        foreach ($attachments as $attachment) {
             try {
-                if ($do_create && !$model->source()->tableExists()) {
-                    $this->createTable($model, $output);
+                if ($do_create && !$attachment->source()->tableExists()) {
+                    $this->createTable($attachment, $output);
                     $createCount++;
                 } elseif ($do_update) {
-                    $this->updateTable($model, $output);
+                    // Check for conflicts with existing fields
+                    $this->updateTable($attachment, $output, $fieldCache);
+
                     $updateCount++;
                 }
             } catch (\Throwable $th) {
-                $this->timer()->stop();
                 $this->writeError($th->getMessage(), $output);
                 $output->writeln(sprintf(
-                    '<fg=red>Failed to synchronize model: %s</>',
-                    $model::objType()
+                    '<fg=red>Failed to synchronize attachment: %s</>',
+                    $attachment::objType()
                 ));
+            }
+        }
+
+        // Conflicts
+        $fieldConflicts = array_filter($fieldCache, function ($item) {
+            $typeHasProblems       = !empty($item['type']) ? count($item['type']) > 1 : false;
+            $defaultValHasProblems = !empty($item['default_val']) ? count($item['default_val']) > 1 : false;
+            $allowNullHasProblems  = !empty($item['allow_null']) ? count($item['allow_null']) > 1 : false;
+
+            return $typeHasProblems || $defaultValHasProblems || $allowNullHasProblems;
+        });
+
+        if (!empty($fieldConflicts)) {
+            $output->writeln('');
+            $output->writeln(sprintf(
+                '<fg=red>%s</>',
+                'WARNING - You have some property conflicts'
+            ));
+            foreach ($fieldConflicts as $key => $value) {
+                $output->writeln('');
+                $output->writeln(sprintf('Property <fg=yellow;options=bold>%s</>:', $key));
+                foreach ($value['type'] as $type => $attachments) {
+                    $output->writeln(sprintf('- These attachments define the type as: <fg=yellow;options=bold>%s</>', $type));
+                    foreach ($attachments as $attachment) {
+                        $output->writeln(sprintf('-- %s', $attachment));
+                    }
+                }
+            }
+        } else {
+            // Do actual update here.
+            if (!$this->isDryRun) {
+                foreach ($attachments as $attachment) {
+                    $this->timer()->start();
+                    /** @var DatabaseSource $source */
+                    $source = $attachment->source();
+                    $source->alterTable();
+
+                    $output->writeln(sprintf(
+                        '<fg=green>Updated %s - %ss</>',
+                        $source->table(),
+                        $this->timer()->stop()
+                    ));
+                }
             }
         }
 
@@ -199,14 +224,14 @@ EOF
         return self::$SUCCESS;
     }
 
-    private function createTable(ModelInterface $model, OutputInterface $output)
+    private function createTable(ModelInterface $attachment, OutputInterface $output)
     {
-        $class_name = get_class($model);
+        $class_name = get_class($attachment);
         $output->writeln(sprintf('<fg=green>Creating table</> for <fg=yellow;options=bold>%s</>', $class_name));
 
         if (!$this->isDryRun) {
             /** @var DatabaseSource $source */
-            $source = $model->source();
+            $source = $attachment->source();
             $source->createTable();
 
             $output->writeln(sprintf(
@@ -217,40 +242,42 @@ EOF
         }
     }
 
-    private function updateTable(ModelInterface $model, OutputInterface $output)
+    private function updateTable(ModelInterface $attachment, OutputInterface $output, &$fieldCache = [])
     {
-        $class_name = get_class($model);
-        $updateMessage = sprintf('<fg=blue>Updating table</> for <fg=yellow;options=bold>%s</>', $class_name);
-        $changes = $this->getChanges($model, $output);
-        if ($changes instanceof Table) {
-            $output->writeln($updateMessage);
-            $changes->render();
+        $class_name = get_class($attachment);
+        $changes = $this->getChanges($attachment, $output);
 
-            if (!$this->isDryRun) {
-                /** @var DatabaseSource $source */
-                $source = $model->source();
-                $source->alterTable();
-
-                $output->writeln(sprintf(
-                    '<fg=green>Updated %s - %ss</>',
-                    $source->table(),
-                    $this->timer()->stop()
-                ));
-            }
+        if (!empty($changes['alterations'])) {
+            $output->writeln(sprintf('<fg=blue>Updating attachments table</> for <fg=yellow;options=bold>%s</>', $class_name));
+            $changes['table']->render();
         } else {
             $output->writeln(sprintf('Skipping <fg=yellow;options=bold>%s</>: already up-to-date', $class_name));
         }
+
+        if (!empty($changes['properties'])) {
+            // Check for conflicts
+            foreach ($changes['properties'] as $property => $aspects) {
+                if (empty($fieldCache[$property])) {
+                    $fieldCache[$property] = [];
+                }
+
+                foreach ($aspects as $aspect => $value) {
+                    $fieldCache[$property][$aspect][$value][] = $class_name;
+                }
+            }
+        }
     }
 
-    private function getChanges(ModelInterface $model, OutputInterface $output): ?Table
+    private function getChanges(ModelInterface $attachment, OutputInterface $output): ?array
     {
         /** @var DatabaseSource $source */
-        $source = $model->source();
-        $fields = $this->getModelFields($model);
+        $source = $attachment->source();
+        $fields = $this->getAttachmentFields($attachment);
         $tableStructure = $source->tableStructure();
 
         $table = (new Table($output))->setHeaders(['Property', 'Aspect', 'Old', 'New']);
         $alterations = 0;
+        $properties = [];
 
         foreach ($fields as $field) {
             $ident = $field->ident();
@@ -260,10 +287,17 @@ EOF
                 if ($fieldSql) {
                     $alterations++;
                     $table->addRow([$ident, '--', '--', 'CREATE']);
+                    $properties[$ident]['type'] = strtolower($field->sqlType());
                 }
             } else {
                 // The key exists. Validate.
                 $col   = $tableStructure[$ident];
+
+                $properties[$ident] = [
+                    'type'        => strtolower($field->sqlType()),
+                    'allow_null'  => $field->allowNull() ? 'true' : 'false',
+                    'default_val' => !empty($field->defaultVal()) ? $field->defaultVal() : 'EMPTY'
+                ];
 
                 if (strtolower($col['Type']) !== strtolower($field->sqlType())) {
                     // types do not match.
@@ -305,23 +339,27 @@ EOF
             }
         }
 
-        return $alterations ? $table : null;
+        return [
+            'properties'  => $properties,
+            'alterations' => $alterations ?? false,
+            'table'       => $table ?? false,
+        ];
     }
 
-    private function getModelFields(ModelInterface $model)
+    private function getAttachmentFields(ModelInterface $attachment)
     {
-        /** @var Model $model */
-        $properties = array_keys($model->metadata()->properties());
+        /** @var Attachment $attachment */
+        $properties = array_keys($attachment->metadata()->properties());
 
         $fields = [];
         foreach ($properties as $propertyIdent) {
             /** @var AbstractProperty $prop */
-            $prop = $model->property($propertyIdent);
+            $prop = $attachment->property($propertyIdent);
             if (!$prop || !$prop['active'] || !$prop['storable']) {
                 continue;
             }
 
-            $val = $model->propertyValue($propertyIdent);
+            $val = $attachment->propertyValue($propertyIdent);
             foreach ($prop->fields($val) as $fieldIdent => $field) {
                 $fields[$field->ident()] = $field;
             }

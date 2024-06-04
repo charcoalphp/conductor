@@ -10,7 +10,7 @@ use Throwable;
 
 abstract class AbstractModelCommand extends AbstractCommand
 {
-    public function loadModels($modelFactory, OutputInterface $output): array
+    public function loadObjects($modelFactory, OutputInterface $output, callable $filterFunction = null)
     {
         $finder = new Finder();
         $finder->files()->in($this->getProjectDir() . '/src/')->name('*.php');
@@ -23,8 +23,8 @@ abstract class AbstractModelCommand extends AbstractCommand
             if (
                 !(
                     (
-                        str_contains($namespace, 'Object') ||
-                        str_contains($namespace, 'Model')
+                        (is_callable($filterFunction) && $filterFunction($namespace)) ||
+                        !is_callable($filterFunction)
                     ) &&
                     !str_contains($namespace, 'Transformer') &&
                     !str_contains($namespace, 'Shared') &&
@@ -43,12 +43,60 @@ abstract class AbstractModelCommand extends AbstractCommand
                 $models[] = $newModel;
             } catch (Throwable $e) {
                 if ($output->isDebug()) {
-                    $output->writeln("Failed to create class '$class_name': " . $e->getMessage());
+                    $output->writeln("ModelFactory failed to create model using class '$class_name': " . $e->getMessage());
                 }
                 continue;
             }
         }
 
         return $models;
+    }
+
+    public function loadModels($modelFactory, OutputInterface $output): array
+    {
+        return $this->loadObjects($modelFactory, $output, function ($namespace) {
+            return (
+                str_contains($namespace, 'Object') ||
+                str_contains($namespace, 'Model')
+            );
+        });
+    }
+
+    public function loadAttachments($modelFactory, OutputInterface $output): array
+    {
+        return $this->loadObjects($modelFactory, $output, function ($namespace) {
+            return (
+                str_contains($namespace, 'Attachment')
+            );
+        });
+    }
+
+    public function kebabcaseModelName(string $modelName): string
+    {
+        return strtolower(preg_replace('/(?<!^)[A-Z]/', '-$0', $modelName));
+    }
+
+    public function kebabcaseNamespace(string $namespace): string
+    {
+        return strtolower(preg_replace('/(?<!^)([a-z])([A-Z])/', '$1-$2', $namespace));
+    }
+
+    public function snakecaseModelName(string $modelName): string
+    {
+        $kebabcase = $this->kebabcaseModelName($modelName);
+        return str_replace('-', '_', $kebabcase);
+    }
+
+    public function snakecaseNamespace(string $namespace): string
+    {
+        $kebabcase = $this->kebabcaseNamespace($namespace);
+        $snakeNamespace = str_replace('/', '_', str_replace('-', '_', $kebabcase));
+
+        // Remove models/objects from snakeNamespace.
+        $snakeNamespaceParts = explode('_', $snakeNamespace);
+        array_splice($snakeNamespaceParts, 1, 1);
+        $snakeNamespace = implode('_', $snakeNamespaceParts);
+
+        return $snakeNamespace;
     }
 }

@@ -1,0 +1,129 @@
+{
+    "default_data": {
+        "type": "{NAMESPACE}/{OBJECT_TYPE}",
+        "heading": "{OBJECT_NAME}{{# title }}: {{ . }} — {{/ title }}{{^ title }} #{{ id }} — {{/ title }}",
+        "preview": "{{ title }}"
+    },
+
+    "admin": {
+        "forms": {
+            "quick": {
+                "groups": {
+                    "main": {
+                        "properties": [
+                            "title",
+                            "active"
+                        ],
+                        "layout": {
+                            "structure": [
+                                { "columns": [ 3, 1 ] }
+                            ]
+                        }
+                    }
+                }
+            },
+            "full": {
+                "l10n_mode": "loop_inputs",
+                "groups": {
+                    "info": {
+                        "title": "Information",
+                        "properties": [
+                            "title"
+                        ],
+                        "layout": {
+                            "structure": [
+                                { "columns": [ 1 ] }
+                            ]
+                        }
+                    },
+                    "taxo": {
+                        "properties": [
+                            "active"
+                        ],
+                        "layout": {
+                            "structure": [
+                                { "columns": [ 1 ] }
+                            ]
+                        }
+                    }
+                },
+                "sidebars": {
+                    "default": {}
+                }
+            }
+        },
+        "default_form": "full",
+
+        "lists": {
+            "full": {
+                "properties": [
+                    "title",
+                    "active"
+                ],
+                "list_actions": [
+                    {
+                        "label": "New {OBJECT_NAME}",
+                        "ident": "create",
+                        "url": "object/edit?obj_type={NAMESPACE}/{OBJECT_TYPE}"
+                    }
+                ],
+                "filters": {
+                    "type": {
+                        "property": "type",
+                        "value": "{NAMESPACE}/{OBJECT_TYPE}"
+                    }
+                }
+            },
+            "attachment": {
+                "properties": [
+                    "title"
+                ],
+                "orders": {
+                    "type": {
+                        "property": "type",
+                        "val": "asc"
+                    }
+                },
+                "filters": {
+                    "type": {
+                        "property": "type",
+                        "value": "{NAMESPACE}/{OBJECT_TYPE}"
+                    }
+                }
+            }
+        },
+        "default_list": "link",
+
+        "dashboards": {
+            "edit": {
+                "widgets": {
+                    "form": {
+                        "type": "charcoal/admin/widget/object-form",
+                        "form_ident": "full",
+                        "obj_type": "{NAMESPACE}/{OBJECT_TYPE}"
+                    }
+                },
+                "layout": {
+                    "structure": [
+                        { "columns": [ 1 ] }
+                    ]
+                }
+            },
+            "table": {
+                "title": "List of {OBJECT_NAME}s",
+                "widgets": {
+                    "form": {
+                        "type": "charcoal/admin/widget/table",
+                        "collection_ident": "full",
+                        "obj_type": "{NAMESPACE}/{OBJECT_TYPE}"
+                    }
+                },
+                "layout": {
+                    "structure": [
+                        { "columns": [ 1 ] }
+                    ]
+                }
+            }
+        }
+    }
+}

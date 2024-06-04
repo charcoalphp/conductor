@@ -1,0 +1,6 @@
+{
+    "default_data": {
+        "type": "{NAMESPACE}/{OBJECT_TYPE}"
+    },
+    "properties": {}
+}
