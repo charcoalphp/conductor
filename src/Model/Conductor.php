@@ -36,6 +36,7 @@ final class Conductor
             new Command\Models\CreateAttachment(),
             new Command\Models\CreateModel(),
             new Command\Models\ListAttachments(),
+            new Command\Models\CreateTemplate(),
             new Command\Models\ListModels(),
             new Command\Models\SyncModels(),
             new Command\Models\SyncAttachments(),
