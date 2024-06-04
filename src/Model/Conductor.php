@@ -33,6 +33,7 @@ final class Conductor
         $this->getConsole()->addCommands([
             new CompletionCommand(),
             // Models
+            new Command\Models\CreateAttachment(),
             new Command\Models\CreateModel(),
             new Command\Models\ListAttachments(),
             new Command\Models\ListModels(),

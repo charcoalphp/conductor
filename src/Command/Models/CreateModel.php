@@ -8,7 +8,6 @@ use Charcoal\Model\Model;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Finder\Finder;
 use Symfony\Component\Console\Question\ChoiceQuestion;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 
@@ -154,7 +153,7 @@ EOF
                 $output->writeln('Generating model meta: ' . $metaFilePath);
 
                 $modelSampleFile = $routable ? 'ModelSampleRoutable' : 'ModelSample';
-                $getDefaultContent = file_get_contents(__DIR__ . sprintf('/Samples/%s.json', $modelSampleFile));
+                $getDefaultContent = file_get_contents(__DIR__ . sprintf('/Samples/model/%s.json', $modelSampleFile));
 
                 $filesystem->dumpFile($metaFilePath, $this->placeholdersModelMeta(
                     $getDefaultContent,
@@ -174,7 +173,7 @@ EOF
             if (!$filesystem->exists($metaFilePath)) {
                 $output->writeln('Generating model admin meta: ' . $metaFilePath);
 
-                $getDefaultContent = file_get_contents(__DIR__ . '/Samples/ModelSampleAdmin.json');
+                $getDefaultContent = file_get_contents(__DIR__ . '/Samples/model/ModelSampleAdmin.json');
 
                 $filesystem->dumpFile($metaFilePath, $this->placeholdersModelAdminMeta(
                     $getDefaultContent,
@@ -195,7 +194,7 @@ EOF
                 $output->writeln('Generating model class: ' . $modelFilePath);
 
                 $modelSampleFile = $routable ? 'ModelSampleRoutable' : 'ModelSample';
-                $getDefaultContent = file_get_contents(__DIR__ . sprintf('/Samples/%s.php', $modelSampleFile));
+                $getDefaultContent = file_get_contents(__DIR__ . sprintf('/Samples/model/%s.php', $modelSampleFile));
 
                 $filesystem->dumpFile($modelFilePath, $this->placeholdersModel(
                     $getDefaultContent,
