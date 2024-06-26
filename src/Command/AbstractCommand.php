@@ -84,11 +84,11 @@ abstract class AbstractCommand extends Command
             ]);
 
             if ($this->isDdevSupported()) {
-               $ddevDbHostname = $this->getDdevDbHostname();
+                // Replace internal DB hostname with external hostname
                 $config->merge([
                     'databases' => [
-                        'default' => [
-                            'hostname' => $ddevDbHostname,
+                        $config->defaultDatabase() => [
+                            'hostname' => $this->getDdevDbHostname(),
                         ]
                     ]
                 ]);
