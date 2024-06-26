@@ -5,11 +5,14 @@ $minimumPhpVersion = '7.4';
 //check for valet
 //$use_valet = !empty(shell_exec('command -v valet'));
 $use_valet = false;
+$use_ddev  = false;
 
 // First, check if the system's linked "php" is 7.4+; if so, return that. This
 // is the most likely, most ideal, and fastest possible case
 if ($use_valet) {
     $linkedPhpVersion = shell_exec('valet php -r "echo phpversion();"');
+} else if ($use_ddev) {
+    $linkedPhpVersion = shell_exec('ddev php -r "echo phpversion();"');
 } else {
     $linkedPhpVersion = shell_exec('php -r "echo phpversion();"');
 }
@@ -17,6 +20,8 @@ if ($use_valet) {
 if (version_compare($linkedPhpVersion, $minimumPhpVersion) >= 0) {
     if ($use_valet) {
         echo exec('valet php -dxdebug.remote_enable=true -dxdebug.mode=debug -dxdebug.start_with_request=yes -r \'echo $_SERVER["_"];\'');
+    } else if ($use_ddev) {
+        echo exec('ddev php -r \'echo $_SERVER["_"];\'');
     } else {
         echo exec('which php');
     }

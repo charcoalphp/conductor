@@ -83,6 +83,17 @@ abstract class AbstractCommand extends Command
                 ]
             ]);
 
+            if ($this->isDdevSupported()) {
+               $ddevDbHostname = $this->getDdevDbHostname();
+                $config->merge([
+                    'databases' => [
+                        'default' => [
+                            'hostname' => $ddevDbHostname,
+                        ]
+                    ]
+                ]);
+            }
+
             $this->appConfig = $config;
         }
 
@@ -201,6 +212,10 @@ abstract class AbstractCommand extends Command
             $phpBinary = $this->getPhpBinaryFromScript('cd ' . __DIR__ . '/../../;valet link;valet which-php', $output);
         }
 
+        if ($this->isDdevSupported()) {
+            $phpBinary = 'ddev php';
+        }
+
         return $phpBinary;
     }
 
@@ -219,6 +234,30 @@ abstract class AbstractCommand extends Command
     public function isValetSupported()
     {
         return !empty(shell_exec(sprintf("which %s", escapeshellarg('valet'))));
+    }
+
+    public function isDdevSupported()
+    {
+        $path = $this->getProjectDir() . '/.ddev/.webimageBuild/Dockerfile';
+        $dockerfile_exists   = file_exists($path);
+        $ddev_command_exists = !empty(shell_exec(sprintf("which %s", escapeshellarg('ddev'))));
+
+        return $dockerfile_exists && $ddev_command_exists;
+    }
+
+    function getDdevDbHostname(): ?string {
+        try {
+            $ddevJson = json_decode(trim(shell_exec('ddev describe -j')), true);
+
+            $dbHost = $ddevJson['raw']['dbinfo']['host'];
+            $dbHost = $dbHost === 'db' ? '127.0.0.1' : $dbHost;
+
+            $dbPort = $ddevJson['raw']['dbinfo']['published_port'];
+
+            return $dbHost . ':' . $dbPort;
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 
     protected function getQuestionHelper(): QuestionHelper
