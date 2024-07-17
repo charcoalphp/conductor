@@ -10,10 +10,14 @@ use Throwable;
 
 abstract class AbstractModelCommand extends AbstractCommand
 {
-    public function loadObjects($modelFactory, OutputInterface $output, callable $filterFunction = null)
-    {
+    public function loadObjects(
+        $modelFactory,
+        OutputInterface $output,
+        callable $filterFunction = null,
+        string $directory = '/src/'
+    ) {
         $finder = new Finder();
-        $finder->files()->in($this->getProjectDir() . '/src/')->name('*.php');
+        $finder->files()->in($this->getProjectDir() . $directory)->name('*.php');
         $models = [];
 
         foreach ($finder as $file) {
@@ -23,11 +27,13 @@ abstract class AbstractModelCommand extends AbstractCommand
             if (
                 !(
                     (
-                        (is_callable($filterFunction) && $filterFunction($namespace)) ||
+                        (is_callable($filterFunction) && $filterFunction($file, $namespace)) ||
                         !is_callable($filterFunction)
                     ) &&
                     !str_contains($namespace, 'Transformer') &&
                     !str_contains($namespace, 'Shared') &&
+                    !str_contains($namespace, 'Script') &&
+                    !str_contains($namespace, 'Action') &&
                     !str_contains($file->getFilename(), 'Abstract') &&
                     !str_contains($file->getFilename(), 'Interface') &&
                     !str_contains($file->getFilename(), 'Trait')
@@ -37,6 +43,7 @@ abstract class AbstractModelCommand extends AbstractCommand
             }
 
             $class_name = rtrim($namespace, '\\') . '\\' . $file->getFilenameWithoutExtension();
+            $class_name = str_replace('src\\', '', $class_name);
 
             try {
                 $newModel = $modelFactory->create($class_name);
@@ -52,19 +59,49 @@ abstract class AbstractModelCommand extends AbstractCommand
         return $models;
     }
 
+    public function loadAdminModels($modelFactory, OutputInterface $output): array
+    {
+        $models = [];
+        $directories_to_scan = [
+            '/vendor/charcoal/charcoal/packages/object',
+            '/vendor/charcoal/charcoal/packages/attachment',
+        ];
+
+        foreach ($directories_to_scan as $directory) {
+            if (file_exists($this->getProjectDir() . $directory)) {
+                $models = array_merge(
+                    $models,
+                    $this->loadObjects($modelFactory, $output, function (SplFileInfo $file, string $namespace) use ($directory) {
+                        if (str_contains($directory, 'attachment')) {
+                            return (
+                                str_contains($file->getFilename(), 'Join')
+                            );
+                        }
+
+                        return true;
+                    }, $directory),
+                );
+            }
+        }
+
+        return $models;
+    }
+
     public function loadModels($modelFactory, OutputInterface $output): array
     {
-        return $this->loadObjects($modelFactory, $output, function ($namespace) {
+        return $this->loadObjects($modelFactory, $output, function (SplFileInfo $file, string $namespace) {
             return (
-                str_contains($namespace, 'Object') ||
-                str_contains($namespace, 'Model')
+                !str_contains($namespace, 'Attachment') && (
+                    str_contains($namespace, 'Object') ||
+                    str_contains($namespace, 'Model')
+                )
             );
         });
     }
 
     public function loadAttachments($modelFactory, OutputInterface $output): array
     {
-        return $this->loadObjects($modelFactory, $output, function ($namespace) {
+        return $this->loadObjects($modelFactory, $output, function (SplFileInfo $file, string $namespace) {
             return (
                 str_contains($namespace, 'Attachment')
             );
