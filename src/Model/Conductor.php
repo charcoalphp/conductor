@@ -44,6 +44,7 @@ final class Conductor
             new Command\Scripts\RunScript(),
             // Project
             new Command\Project\CreateProject(),
+            new Command\Project\CreateProjectTables(),
         ]);
 
         return;

@@ -134,7 +134,6 @@ EOF
             $output->writeln('<fg=yellow;bg=red;options=bold> - DRY RUN - </>');
         }
 
-
         $do_create = true;
         $do_update = ($input->getOption('create-only') ?? false) == false;
 
