@@ -233,19 +233,20 @@ abstract class AbstractCommand extends Command
 
     public function isValetSupported()
     {
-        return !empty(shell_exec(sprintf("which %s", escapeshellarg('valet'))));
+        return !empty(shell_exec(sprintf("which %s 2>/dev/null", escapeshellarg('valet'))));
     }
 
     public function isDdevSupported()
     {
         $path = $this->getProjectDir() . '/.ddev/.webimageBuild/Dockerfile';
         $dockerfile_exists   = file_exists($path);
-        $ddev_command_exists = !empty(shell_exec(sprintf("which %s", escapeshellarg('ddev'))));
+        $ddev_command_exists = !empty(shell_exec(sprintf("which %s 2>/dev/null", escapeshellarg('ddev'))));
 
         return $dockerfile_exists && $ddev_command_exists;
     }
 
-    function getDdevDbHostname(): ?string {
+    public function getDdevDbHostname(): ?string
+    {
         try {
             $ddevJson = json_decode(trim(shell_exec('ddev describe -j')), true);
 
