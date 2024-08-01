@@ -65,6 +65,7 @@ abstract class AbstractModelCommand extends AbstractCommand
         $directories_to_scan = [
             '/vendor/charcoal/charcoal/packages/object',
             '/vendor/charcoal/charcoal/packages/attachment',
+            '/vendor/charcoal/charcoal/packages/admin',
         ];
 
         foreach ($directories_to_scan as $directory) {
